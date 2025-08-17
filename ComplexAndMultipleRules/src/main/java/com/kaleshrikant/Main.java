@@ -36,7 +36,7 @@ public class Main {
 			Offer only for PayTm
 			Offer only for PayTm and Xmas
 			First time customer
-			The cashback for this payment channel VIA KIE paytm is 22
+			The cashback for this payment channel VIA KIE paytm is 22 [5 + 7 + 10]
 		*/
 	}
 
