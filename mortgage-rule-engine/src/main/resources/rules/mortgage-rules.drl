@@ -2,6 +2,8 @@ package com.kaleshrikant.rules
 
 import com.kaleshrikant.model.MortgageApplication;
 
+dialect "java"
+
 rule "Approve high credit score"
 when
     $app : MortgageApplication( creditScore >= 700 )
