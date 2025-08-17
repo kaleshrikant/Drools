@@ -1,0 +1,33 @@
+package rules
+
+import com.kaleshrikant.model.PaymentOffer
+
+rule "Offer for PayTm"
+    when
+       // offerObject : PaymentOffer(channel == "PayTm")
+        offerObject : PaymentOffer()
+        eval(offerObject.getChannel().equals("PayTm"))
+    then
+        offerObject.setDiscount(17);
+        System.out.println("Offer only for PayTm");
+    end
+
+rule "Offer for PhonePe"
+    when
+        // offerObject : PaymentOffer(channel == "PhonePe")
+        offerObject : PaymentOffer()
+        eval(offerObject.getChannel().equals("PhonePe"))
+    then
+        offerObject.setDiscount(20);
+        System.out.println("Offer only for PhonePe");
+    end
+
+rule "Offer for GooglePay"
+    when
+       // offerObject : PaymentOffer(channel == "GooglePay")
+        offerObject : PaymentOffer()
+        eval(offerObject.getChannel().equals("GooglePay"))
+    then
+        offerObject.setDiscount(25);
+        System.out.println("Offer only for GooglePay");
+    end
