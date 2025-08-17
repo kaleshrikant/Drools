@@ -1,0 +1,10 @@
+.gradle
+build
+out
+*.iml
+*.log
+*.jar
+*.class
+.idea
+target
+*.swp
