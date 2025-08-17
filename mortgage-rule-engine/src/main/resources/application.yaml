@@ -1,0 +1,11 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: mortgage-rule-engine
+
+logging:
+  level:
+    root: INFO
+    com.kaleshrikant: DEBUG
