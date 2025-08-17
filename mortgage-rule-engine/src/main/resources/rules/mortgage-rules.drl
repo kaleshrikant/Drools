@@ -1,0 +1,19 @@
+package com.kaleshrikant.rules
+
+import com.kaleshrikant.model.MortgageApplication;
+
+rule "Approve high credit score"
+when
+    $app : MortgageApplication( creditScore >= 700 )
+then
+    $app.setStatus("APPROVED");
+    System.out.println("Application approved for " + $app.getApplicantName());
+end
+
+rule "Reject low credit score"
+when
+    $app : MortgageApplication( creditScore < 700 )
+then
+    $app.setStatus("REJECTED");
+    System.out.println("Application rejected for " + $app.getApplicantName());
+end
