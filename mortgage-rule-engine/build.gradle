@@ -6,8 +6,12 @@ plugins {
 
 group = 'com.kaleshrikant'
 version = '1.0.0'
-sourceCompatibility = '21'
 description = 'Demo project for Spring Boot with Drools mortgage rule engine'
+
+bootJar {
+    archiveFileName = 'mortgage-rule-engine.jar'
+    mainClass = 'com.kaleshrikant.MortgageRuleEngineApplication'
+}
 
 java {
 	toolchain {
