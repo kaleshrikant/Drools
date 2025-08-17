@@ -1,11 +1,12 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.5.4'
-	id 'io.spring.dependency-management' version '1.1.7'
+    id 'java'
+    id 'org.springframework.boot' version '3.1.4'
+    id 'io.spring.dependency-management' version '1.1.4'
 }
 
 group = 'com.kaleshrikant'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0'
+sourceCompatibility = '21'
 description = 'Demo project for Spring Boot with Drools mortgage rule engine'
 
 java {
@@ -22,6 +23,7 @@ configurations {
 
 repositories {
 	mavenCentral()
+    maven { url "https://repository.jboss.org/nexus/content/groups/public/" }
 }
 
 dependencies {
@@ -31,6 +33,10 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    // Drools Dependencies //
+    implementation 'org.kie:kie-api:7.73.0.Final'
+    implementation 'org.drools:drools-core:7.73.0.Final'
+    implementation 'org.kie:kie-spring:7.73.0.Final'
 }
 
 tasks.named('test') {
