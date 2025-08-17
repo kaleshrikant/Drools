@@ -20,8 +20,8 @@ public class Main {
 
 		// 4. Creating : Facts
 		PaymentOffer payTmOffer = new PaymentOffer();
-			payTmOffer.setChannel("PayTm");
-			payTmOffer.setFestival("Diwali");
+			payTmOffer.setChannel("paytm");
+			payTmOffer.setFestival("xmas");
 			payTmOffer.setFirstTimeCustomer(true);
 
 		// 4. Inserting : Facts
@@ -34,7 +34,7 @@ public class Main {
 
 		/*
 			First time customer
-			The cashback for this payment channel VIA KIE PayTm is 10
+			The cashback for this payment channel VIA KIE paytm is 22
 		*/
 	}
 
