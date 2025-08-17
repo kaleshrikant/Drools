@@ -33,6 +33,8 @@ public class Main {
 	System.out.println("The cashback for this payment channel VIA KIE "+payTmOffer.getChannel()+" is "+payTmOffer.getDiscount());
 
 		/*
+			Offer only for PayTm
+			Offer only for PayTm and Xmas
 			First time customer
 			The cashback for this payment channel VIA KIE paytm is 22
 		*/
