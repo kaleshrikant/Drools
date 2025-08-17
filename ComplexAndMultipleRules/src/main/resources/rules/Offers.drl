@@ -2,6 +2,7 @@ package rules
 
 import com.kaleshrikant.model.PaymentOffer
 
+salience 2
 rule "Offer for Paytm"
 	when
 		offerObject: PaymentOffer(channel=="paytm")
@@ -9,6 +10,8 @@ rule "Offer for Paytm"
 		offerObject.setDiscount(offerObject.getDiscount() + 5);
 		System.out.println("Offer only for PayTm");
 	end
+
+salience 3
 rule "Offer for Paytmin xmas"
 	when
 		offerObject: PaymentOffer(channel=="paytm") && PaymentOffer(festival=="xmas")
@@ -17,6 +20,7 @@ rule "Offer for Paytmin xmas"
 		System.out.println("Offer only for PayTm and Xmas");
 	end
 
+salience 1
 rule "First time customer"
 	when
 		offerObject: PaymentOffer(firstTimeCustomer)
