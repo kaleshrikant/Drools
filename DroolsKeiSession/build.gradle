@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 group = 'com.kaleshrikant'
@@ -13,6 +14,22 @@ dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation 'org.kie:kie-api:7.74.0.Final'
+    implementation 'org.kie:kie-api:8.44.0.Final'
+    implementation 'org.drools:drools-core:8.44.0.Final'
+    implementation 'org.drools:drools-compiler:8.44.0.Final'
+    implementation 'org.drools:drools-xml-support:8.44.0.Final'
+    implementation 'org.drools:drools-mvel:8.44.0.Final'
+    implementation 'org.slf4j:slf4j-simple:1.7.36'
+}
+
+
+application {
+    mainClass = 'com.kaleshrikant.DroolsWithKie'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }
 
 test {
