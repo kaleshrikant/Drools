@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mortgage-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mortgage
+  template:
+    metadata:
+      labels:
+        app: mortgage
+    spec:
+      containers:
+        - name: mortgage-app
+          image: kaleshrikant/mortgage-rule-engine:latest
+          ports:
+            - containerPort: 8080
