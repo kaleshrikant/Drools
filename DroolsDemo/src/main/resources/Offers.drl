@@ -1,0 +1,25 @@
+import com.kaleshrikant.model.PaymentOffer;
+
+rule "Offer for PayTm"
+    when
+        offerObject : PaymentOffer(channel == "PayTm")
+    then
+        offerObject.setDscount(17);
+        System.out.println("PayTm offer applied");
+    end
+
+rule "Offer for PhonePay"
+    when
+        offerObject : PaymentOffer(channel == "PhonePay")
+    then
+        offerObject.setDscount(20);
+        System.out.println("PhonePay offer applied");
+    end
+
+rule "Offer for GooglePay"
+    when
+        offerObject : PaymentOffer(channel == "GooglePay")
+    then
+        offerObject.setDscount(25);
+        System.out.println("GooglePay offer applied");
+    end
