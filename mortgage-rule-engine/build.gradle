@@ -8,6 +8,10 @@ group = 'com.kaleshrikant'
 version = '1.0.0'
 description = 'Demo project for Spring Boot with Drools mortgage rule engine'
 
+ext {
+    kogitoVersion = '1.43.0.Final'
+}
+
 bootJar {
     archiveFileName = 'mortgage-rule-engine.jar'
     mainClass = 'com.kaleshrikant.MortgageRuleEngineApplication'
@@ -27,7 +31,9 @@ configurations {
 
 repositories {
 	mavenCentral()
-    maven { url "https://repository.jboss.org/nexus/content/groups/public/" }
+    maven {
+        url "https://repository.jboss.org/nexus/content/groups/public/"
+    }
 }
 
 dependencies {
@@ -38,9 +44,10 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     // Drools Dependencies //
-    implementation 'org.kie:kie-api:7.73.0.Final'
-    implementation 'org.drools:drools-core:7.73.0.Final'
-    implementation 'org.kie:kie-spring:7.73.0.Final'
+    implementation "org.kie.kogito:kogito-spring-boot-starter:$kogitoVersion"
+    testImplementation "org.kie.kogito:kogito-spring-boot-starter-test:$kogitoVersion"
+    implementation 'org.drools:drools-xml-support:8.43.0.Final'
+    implementation 'org.drools:drools-wiring-dynamic:8.43.0.Final'
 }
 
 tasks.named('test') {
