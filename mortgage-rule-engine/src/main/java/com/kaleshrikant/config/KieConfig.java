@@ -22,7 +22,7 @@ public class KieConfig {
 
 	@Bean
 	public KieContainer kieContainer(KieServices kieServices) {
-		return kieServices.getKieClasspathContainer();
+		return kieServices.newKieClasspathContainer();
 	}
 
 	@Bean
