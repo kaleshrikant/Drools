@@ -1,0 +1,16 @@
+/home/shrikant/WORK-SPACE/DROOLS/Drools/drools-training/src/test/java/io/github/aasaru/drools/SystemOutTestUtil.java
+/home/shrikant/WORK-SPACE/DROOLS/Drools/drools-training/src/test/java/io/github/aasaru/drools/TestUtil.java
+/home/shrikant/WORK-SPACE/DROOLS/Drools/drools-training/src/test/java/io/github/aasaru/drools/domain/InvalidPassportTest.java
+/home/shrikant/WORK-SPACE/DROOLS/Drools/drools-training/src/test/java/io/github/aasaru/drools/domain/ValidPassportTest.java
+/home/shrikant/WORK-SPACE/DROOLS/Drools/drools-training/src/test/java/io/github/aasaru/drools/section03/StatelessPassportValidationTest.java
+/home/shrikant/WORK-SPACE/DROOLS/Drools/drools-training/src/test/java/io/github/aasaru/drools/section04/StatefulPassportValidationTest.java
+/home/shrikant/WORK-SPACE/DROOLS/Drools/drools-training/src/test/java/io/github/aasaru/drools/section05/VisaApplicationValidationTest.java
+/home/shrikant/WORK-SPACE/DROOLS/Drools/drools-training/src/test/java/io/github/aasaru/drools/section06/VisaIssueTest.java
+/home/shrikant/WORK-SPACE/DROOLS/Drools/drools-training/src/test/java/io/github/aasaru/drools/section07/VisaInsertLogicalTest.java
+/home/shrikant/WORK-SPACE/DROOLS/Drools/drools-training/src/test/java/io/github/aasaru/drools/section08/FamilyVisaApplicationValidationTest.java
+/home/shrikant/WORK-SPACE/DROOLS/Drools/drools-training/src/test/java/io/github/aasaru/droolsoopath/section03/PassportValidationOOTest.java
+/home/shrikant/WORK-SPACE/DROOLS/Drools/drools-training/src/test/java/io/github/aasaru/droolsoopath/section04/StatefulPassportValidationOOTest.java
+/home/shrikant/WORK-SPACE/DROOLS/Drools/drools-training/src/test/java/io/github/aasaru/droolsoopath/section05/VisaApplicationValidationOOTest.java
+/home/shrikant/WORK-SPACE/DROOLS/Drools/drools-training/src/test/java/io/github/aasaru/droolsoopath/section06/VisaIssueOOTest.java
+/home/shrikant/WORK-SPACE/DROOLS/Drools/drools-training/src/test/java/io/github/aasaru/droolsoopath/section07/VisaAddLogicalOOTest.java
+/home/shrikant/WORK-SPACE/DROOLS/Drools/drools-training/src/test/java/io/github/aasaru/droolsoopath/section08/FamilyVisaApplicationValidationOOTest.java

@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: io.github.aasaru.drools.section08.FamilyVisaApplicationValidationTest
+-------------------------------------------------------------------------------
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.874 s -- in io.github.aasaru.drools.section08.FamilyVisaApplicationValidationTest

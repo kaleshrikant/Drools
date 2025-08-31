@@ -1,0 +1,16 @@
+io/github/aasaru/drools/section07/VisaInsertLogicalTest.class
+io/github/aasaru/droolsoopath/section06/VisaIssueOOTest.class
+io/github/aasaru/drools/TestUtil.class
+io/github/aasaru/drools/section03/StatelessPassportValidationTest.class
+io/github/aasaru/drools/section05/VisaApplicationValidationTest.class
+io/github/aasaru/drools/section06/VisaIssueTest.class
+io/github/aasaru/droolsoopath/section08/FamilyVisaApplicationValidationOOTest.class
+io/github/aasaru/droolsoopath/section07/VisaAddLogicalOOTest.class
+io/github/aasaru/drools/SystemOutTestUtil.class
+io/github/aasaru/drools/section04/StatefulPassportValidationTest.class
+io/github/aasaru/drools/domain/ValidPassportTest.class
+io/github/aasaru/droolsoopath/section04/StatefulPassportValidationOOTest.class
+io/github/aasaru/drools/section08/FamilyVisaApplicationValidationTest.class
+io/github/aasaru/droolsoopath/section05/VisaApplicationValidationOOTest.class
+io/github/aasaru/drools/domain/InvalidPassportTest.class
+io/github/aasaru/droolsoopath/section03/PassportValidationOOTest.class

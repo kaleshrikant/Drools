@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: io.github.aasaru.droolsoopath.section06.VisaIssueOOTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.180 s -- in io.github.aasaru.droolsoopath.section06.VisaIssueOOTest
