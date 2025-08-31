@@ -1,0 +1,53 @@
+package io.github.aasaru.drools.intermediate.section05.step8
+
+import io.github.aasaru.drools.intermediate.domain.cep.Agent;
+import io.github.aasaru.drools.intermediate.domain.cep.Call;
+import io.github.aasaru.drools.intermediate.service.CallService;
+import io.github.aasaru.drools.intermediate.service.AgentService;
+
+import java.util.List;
+
+global CallService callService;
+global AgentService agentService;
+
+declare TimeWaited
+	@role( event )
+	time : long
+end
+
+rule "Connect an agent with a suitable call that has earliest start"
+	dialect "java"
+	when
+		$agent: Agent()
+		$callToPickUp: Call( $agent.speaks(this.language) )
+		forall (
+			$candidateCall : Call( $agent.speaks(this.language) ),
+			Call( this == $candidateCall, this.callStart >= $callToPickUp.callStart )
+		)
+	then
+		callService.connectWithAgent($callToPickUp, $agent);
+		delete($agent);
+		delete($callToPickUp);
+		TimeWaited timeWaited = new TimeWaited($callToPickUp.getTimeWaited());
+		callService.reportMessage("Inserting " + timeWaited);
+		insert(timeWaited);
+end
+
+// removed rule "Nobody at work who speaks the language"
+
+rule "Output queue size and wait time"
+	dialect "java"
+	salience 100
+	// repeat every 1 second with initial delay of 0 seconds
+	timer ( int: 0s 1s )
+	when
+		$queue : List() from collect( Call() )
+
+		$averageWaitTime: Double() from accumulate(
+			TimeWaited($waitTime : time) over window:time(4s),
+		average($waitTime))
+	then
+		callService.reportQueueSizeAndWaitTime( $queue.size(), $averageWaitTime );
+end
+
+// halting has been moved to Java code
