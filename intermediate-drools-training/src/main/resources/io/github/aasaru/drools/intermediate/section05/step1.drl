@@ -1,0 +1,19 @@
+package io.github.aasaru.drools.intermediate.section05.step1
+
+import io.github.aasaru.drools.intermediate.domain.cep.Agent;
+import io.github.aasaru.drools.intermediate.domain.cep.Call;
+import io.github.aasaru.drools.intermediate.service.CallService;
+
+global CallService callService;
+
+rule "Connect an agent with a suitable call"
+	dialect "java"
+	when
+		$agent: Agent( $agentLanguages : speaksLanguages )
+		$agentLanguage: String() from $agentLanguages
+		$callToPickUp: Call( this.language == $agentLanguage )
+	then
+		callService.connectWithAgent($callToPickUp, $agent);
+		delete($agent);
+		delete($callToPickUp);
+end

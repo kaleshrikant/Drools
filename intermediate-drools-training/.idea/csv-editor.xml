@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CsvFileAttributes">
+    <option name="attributeMap">
+      <map>
+        <entry key="/src/main/resources/io/github/aasaru/drools/intermediate/section03/step1/step1.xls">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/io/github/aasaru/drools/intermediate/section03/step10/step10.xls">
+          <value>
+            <Attribute>
+              <option name="separator" value="&#9;" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/io/github/aasaru/drools/intermediate/section03/step2/step2.xls">
+          <value>
+            <Attribute>
+              <option name="separator" value="&#9;" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/io/github/aasaru/drools/intermediate/section03/step7/step7.xls">
+          <value>
+            <Attribute>
+              <option name="separator" value="&#9;" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/io/github/aasaru/drools/intermediate/section03/step8/step8.xls">
+          <value>
+            <Attribute>
+              <option name="separator" value="&#9;" />
+            </Attribute>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
