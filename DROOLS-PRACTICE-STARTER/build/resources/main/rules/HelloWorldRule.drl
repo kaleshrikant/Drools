@@ -1,0 +1,9 @@
+package rules
+
+rule "Hello World"
+when
+    eval(true)
+then
+    System.out.println("☕ Hello, Drools World from core!");
+end
+
