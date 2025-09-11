@@ -14,13 +14,8 @@
 /binary/
 /classes/
 
-# 🧠 Drools decision tables and templates
-*.xls
-*.csv
-*.drt
 
 # 📜 Drools rule engine cache
-*.drl~
 *.drl.bak
 
 # 🧰 IntelliJ IDEA
