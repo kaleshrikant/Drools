@@ -1,0 +1,37 @@
+package rules;
+
+import com.kaleshrikant.drools.keywords.model.AgeCandidate;
+
+global org.slf4j.Logger logger;
+
+rule "Mark Even Age"
+    no-loop true
+    when
+        $person : AgeCandidate(
+            eval($person.getAge() % 2 == 0),
+            evenAge == false
+        )
+    then
+        logger.info("🔢 {} has an even age: {}", $person.getName(), $person.getAge());
+        update($person)
+end
+
+rule "Log Odd Age"
+    when
+        $person : AgeCandidate(
+            eval($person.getAge() % 2 != 0),
+            evenAge == false
+        )
+    then
+        logger.info("🔹 {} has an odd age: {}", $person.getName(), $person.getAge());
+end
+
+rule "Count Even-Aged People"
+    when
+        $evenPersonCount : Number(intValue > 0) from accumulate(
+            AgeCandidate(evenAge == true),
+            count(1)
+        )
+    then
+        logger.info("📊 Total people with even age: {}", $evenPersonCount);
+end
