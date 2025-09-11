@@ -1,0 +1,66 @@
+# ☕ Java build artifacts
+*.class
+*.jar
+*.war
+*.ear
+
+# 🛠️ Maven target directory
+/target/
+
+# 🧪 Test reports
+/test-output/
+*.log
+
+# 🧠 Drools decision tables and templates
+*.xls
+*.csv
+*.drt
+
+# 📜 Drools rule engine cache
+*.drl~
+*.drl.bak
+
+# 🧰 IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+out/
+
+# 🧰 Eclipse
+.project
+.classpath
+.settings/
+
+# 🖥️ VS Code
+.vscode/
+
+# 🗂️ OS-specific
+.DS_Store
+Thumbs.db
+
+# 🔐 Environment files
+.env
+*.key
+*.pem
+
+# 🧪 Spring Boot dev artifacts
+*.h2.db
+*.mv.db
+*.db
+*.pid
+
+# 🧹 Logs and temp
+*.log
+*.tmp
+*.bak
+
+# 🧪 Coverage and reports
+/coverage/
+jacoco.exec
+*.ec
+*.exec
+*.coverage
+
+# 🧪 Build tools
+.gradle/
+build/
