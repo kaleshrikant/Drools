@@ -4,6 +4,10 @@ rule "Hello World"
 when
     eval(true)
 then
+    System.out.println("----------------------------------");
+    System.out.println("rule 'Hello World'");
     System.out.println("☕ Hello, Drools World from core!");
+    System.out.println("----------------------------------");
+    System.out.println();
 end
 
