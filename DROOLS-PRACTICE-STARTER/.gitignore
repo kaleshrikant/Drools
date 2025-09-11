@@ -4,12 +4,15 @@
 *.war
 *.ear
 
-# 🛠️ Maven target directory
+# 🛠️ Maven & Gradle build directories
 /target/
+/build/
 
-# 🧪 Test reports
-/test-output/
-*.log
+# 🧪 Test reports and generated files
+/reports/
+/tmp/
+/binary/
+/classes/
 
 # 🧠 Drools decision tables and templates
 *.xls
