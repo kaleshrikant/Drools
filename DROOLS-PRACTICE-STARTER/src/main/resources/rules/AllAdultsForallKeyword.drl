@@ -1,0 +1,23 @@
+package rules
+
+import java.util.List;
+import com.kaleshrikant.drools.keywords.model.AdultCandidate
+import com.kaleshrikant.drools.keywords.model.PhraseInput
+global org.slf4j.Logger logger
+
+rule "Collect Adults for Each Phrase"
+    when
+        $input : PhraseInput()
+        $adults : List() from collect (
+           $a : AdultCandidate(age >= 18)
+        )
+    then
+        // Save into PhraseInput model
+        $input.setAdults($adults);
+        logger.info("🔍 Phrase '{}' matched {} adults", $input.getPhrase(), $adults.size());
+        // ✅ Iterate without type mismatch
+        for (AdultCandidate a : (List<AdultCandidate>) $adults) {
+            logger.info("🧑‍💼 {} (age {})", a.getName(), a.getAge());
+        }
+        update($input);
+end
