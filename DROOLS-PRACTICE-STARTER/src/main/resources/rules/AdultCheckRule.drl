@@ -1,0 +1,45 @@
+package rules;
+
+import com.kaleshrikant.drools.core.model.Citizen;
+
+rule "Classify Junior"
+    when
+         $citizen : Citizen(age <= 18 , status == "UNKNOWN");
+    then
+         System.out.println("----------------------------------");
+         System.out.println("rule 'AdultCheckRule'");
+         $citizen.setStatus("JUNIOR");
+         System.out.println($citizen.getName() + " classified as Minor.");
+         update($citizen); // 🔁 triggers next rule
+end
+
+rule "Classify Adult Status"
+    when
+        $citizen : Citizen(age > 18 && age < 60 , status == "UNKNOWN");
+    then
+         $citizen.setStatus("ADULT");
+         System.out.println($citizen.getName() + " classified as Adult.");
+         System.out.println("----------------------------------");
+         System.out.println();
+         update($citizen); // 🔁 triggers next rule
+end
+
+rule "Classify Senior"
+    when
+        $citizen : Citizen(age >= 60 , status == "UNKNOWN");
+    then
+         $citizen.setStatus("SENIOR");
+         System.out.println($citizen.getName() + " classified as Senior.");
+         System.out.println("----------------------------------");
+         System.out.println();
+         update($citizen); // 🔁 triggers next rule
+end
+
+rule "React to Status"
+    when
+        $citizen : Citizen(status == "UNKNOWN");
+    then
+        System.out.println("✅ " + $citizen.getName() + " is now marked as: " + $citizen.getStatus());
+        System.out.println("----------------------------------");
+        System.out.println();
+end
