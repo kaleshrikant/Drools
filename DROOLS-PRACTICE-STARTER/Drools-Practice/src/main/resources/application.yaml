@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: Drools-Practice
+  main:
+    banner-mode: console
+logging:
+  level:
+    root: INFO
