@@ -1,0 +1,55 @@
+# ===============================
+# Gradle
+# ===============================
+/build/
+/.gradle/
+/out/
+/gradle/wrapper/gradle-wrapper.jar
+
+# ===============================
+# IDE files
+# ===============================
+# IntelliJ IDEA
+/.idea/
+/*.iml
+/out/
+/build/
+# Eclipse
+/.classpath
+/.project
+/.settings/
+/bin/
+/tmp/
+/.vscode/
+
+# ===============================
+# OS files
+# ===============================
+.DS_Store
+Thumbs.db
+
+# ===============================
+# Logs
+# ===============================
+*.log
+/test-results/
+*.pid
+
+# ===============================
+# Drools / KIE generated files
+# ===============================
+*.class
+*.kmodule.xml.bak
+
+# ===============================
+# Resources that can be regenerated
+# ===============================
+/build/resources/
+/build/classes/
+/build/libs/
+/build/tmp/
+
+# ===============================
+# Optional / local configs
+# ===============================
+/application.yaml
