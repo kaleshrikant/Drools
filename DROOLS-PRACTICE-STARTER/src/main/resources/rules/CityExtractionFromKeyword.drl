@@ -1,0 +1,43 @@
+package rules;
+
+import com.kaleshrikant.drools.keywords.model.KeywordInput;
+
+global org.slf4j.Logger logger;
+
+rule "Extract Bangalore"
+    when
+        $input : KeywordInput(
+            keyword != null && keyword.trim().toLowerCase().matches(".*(bengaluru|bangalore).*"),
+            city == null
+        )
+    then
+        $input.setCity("BANGALORE");
+        logger.info("🏙️ Extracted city: Bangalore from keyword '{}'", $input.getKeyword());
+        update($input);
+end
+
+
+rule "Extract Mumbai"
+    when
+        $input : KeywordInput(
+            keyword != null && keyword.trim().toLowerCase().matches(".*(mumbai).*"),
+            city == null
+        )
+    then
+    $input.setCity("MUMBAI");
+    logger.info("🏙️ Extracted city: Mumbai from keyword '{}'", $input.getKeyword());
+    update($input);
+end
+
+
+rule "Extract Pune"
+    when
+        $input : KeywordInput(
+            keyword != null && keyword.trim().toLowerCase().matches(".*(pune).*"),
+            city == null
+        )
+    then
+        $input.setCity("PUNE");
+        logger.info("🏙️ Extracted city: Pune from keyword '{}'", $input.getKeyword());
+        update($input);
+end
