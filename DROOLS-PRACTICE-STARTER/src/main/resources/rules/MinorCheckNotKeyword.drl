@@ -1,0 +1,34 @@
+package rules;
+
+import com.kaleshrikant.drools.keywords.model.Student;
+
+global org.slf4j.Logger logger;
+
+rule "Mark Minor"
+    when
+        $student : Student(age < 18 , minor == false)
+    then
+        $student.setMinor(true);
+        logger.info("🧒 {} is marked as a minor.", $student.getName());
+        update($student);
+end
+
+
+rule "Minor Without Guardian"
+    when
+        $student : Student(minor == true)
+        not Student(hasGuardian == true)
+    then
+        logger.warn("⚠️ Minor {} has no guardian assigned!", $student.getName());
+end
+
+
+rule "Count Minors"
+    when
+        $countMinors : Number(intValue > 0) from accumulate(
+            Student(minor == true),
+            count(1)
+        )
+    then
+        logger.info("📊 Total minors identified: {}", $countMinors);
+end
