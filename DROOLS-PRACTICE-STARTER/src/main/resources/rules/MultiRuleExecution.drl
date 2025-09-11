@@ -1,0 +1,39 @@
+package rules;
+
+import com.kaleshrikant.drools.core.model.Order;
+
+global org.slf4j.Logger logger
+
+rule "Premium Customer Discount"
+    when
+        $order : Order(customerType == "PREMIUM" , amount > 1000)
+    then
+        $order.setDiscount(0.15);
+        logger.info("💎 Order {} gets 15% discount for PREMIUM customer.", $order.getOrderId());
+        update($order)
+end
+
+rule "Bulk Order Discount"
+    when
+        $order : Order(itemCount >= 10  , discount == 0.0)
+    then
+        $order.setDiscount(0.10);
+        logger.info("📦 Order {} gets 10% bulk discount.", $order.getOrderId());
+        update($order);
+end
+
+rule "Regular Customer Discount"
+    when
+        $order : Order(customerType == "REGULAR" , amount > 500, discount == 0.0)
+    then
+        $order.setDiscount(0.05);
+        logger.info("🛒 Order {} gets 5% discount for REGULAR customer.", $order.getOrderId());
+        update($order);
+end
+
+rule "Final Discount Log"
+    when
+        $order : Order(discount > 0.0)
+    then
+        logger.info("✅ Final discount for Order {} is {}%", $order.getOrderId(), $order.getDiscount() * 100);
+end
