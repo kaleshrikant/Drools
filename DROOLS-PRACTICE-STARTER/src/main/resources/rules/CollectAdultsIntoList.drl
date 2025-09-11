@@ -1,0 +1,17 @@
+package rules;
+
+import com.kaleshrikant.drools.keywords.model.Individual;
+
+global java.util.List adultList;
+global org.slf4j.Logger logger;
+
+rule "Collect Adults into List"
+    when
+        $adult : Individual(
+            age >= 18,
+            name != null
+         )
+    then
+        adultList.add($adult);
+        logger.info("🧑‍💼 Added adult: {} (age {})", $adult.getName(), $adult.getAge());
+end
