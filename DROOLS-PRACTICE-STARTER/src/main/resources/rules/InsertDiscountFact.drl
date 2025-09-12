@@ -1,0 +1,37 @@
+package rules;
+
+import com.kaleshrikant.drools.keywords.model.Customer;
+import com.kaleshrikant.drools.keywords.model.DiscountFact;
+
+global org.slf4j.Logger logger;
+global Boolean isFestivalSeason;
+
+rule "Insert Discount Fact for Premium Customer"
+    when
+        $customer : Customer(
+            name != null &&
+            premium == true,
+            purchaseAmount >= 10000
+         )
+         eval(isFestivalSeason == true)
+    then
+        double discount = $customer.getPurchaseAmount() * 0.15;
+        DiscountFact df = new DiscountFact($customer.getName(), discount);
+        insert(df);
+        System.out.println("Inserted DiscountFact for Premium Customer :: " + $customer.getName() + " with ₹" + discount);
+end
+
+rule "Insert Discount Fact for Regular Customer"
+    when
+        $customer : Customer(
+            name != null &&
+            premium == false,
+            purchaseAmount >= 1000
+         )
+         eval(isFestivalSeason == true)
+    then
+        double discount = $customer.getPurchaseAmount() * 0.05;
+        DiscountFact df = new DiscountFact($customer.getName(), discount);
+        insert(df);
+        System.out.println("Inserted DiscountFact for Regular Customer :: " + $customer.getName() + " with ₹" + discount);
+end
