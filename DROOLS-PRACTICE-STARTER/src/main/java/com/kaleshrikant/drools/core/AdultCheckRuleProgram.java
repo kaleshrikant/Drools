@@ -5,6 +5,11 @@ import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 /**
+ * This program uses the Drools rule engine to classify a list of Citizen objects based on their age into three categories:
+ *      JUNIOR
+ *      ADULT
+ *      SENIOR.
+ *
  * @author Shrikant Kale
  * @Date 9/11/25
  */
