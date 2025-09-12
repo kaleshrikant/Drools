@@ -1,0 +1,59 @@
+package rules;
+
+import com.kaleshrikant.drools.control.model.Borrower;
+
+global java.util.List logCollector;
+
+rule "Validate Invoice"
+    agenda-group "billing-validation"
+    lock-on-active true
+    salience 100
+        when
+            $b : Borrower(
+                invoiceAmount > 0,
+                invoiceValid == false
+            )
+        then
+            modify($b) {
+                setInvoiceValid(true)
+            }
+        logCollector.add("🔔 RuleName triggered for '" + $b.getName() + "'");
+        logCollector.add("🧾 Invoice validated for '" + $b.getName() + "'");
+end
+
+
+rule "Apply Discount for High Invoice"
+    agenda-group "billing-discount"
+    lock-on-active true
+    salience 80
+        when
+            $b : Borrower(
+                invoiceValid == true,
+                invoiceAmount >= 10000,
+                discountApplied == false
+            )
+        then
+            modify($b) {
+               setDiscountApplied(true)
+            }
+        logCollector.add("🔔 RuleName triggered for '" + $b.getName() + "'");
+        logCollector.add("💸 Discount applied for '" + $b.getName() + "'");
+end
+
+
+rule "Confirm Billing"
+    agenda-group "billing-confirmation"
+    lock-on-active true
+    salience 60
+        when
+            $b : Borrower(
+                invoiceValid == true,
+                billingConfirmed == false
+            )
+        then
+            modify($b) {
+                setBillingConfirmed(true)
+            }
+        logCollector.add("🔔 RuleName triggered for '" + $b.getName() + "'");
+        logCollector.add("✅ Billing confirmed for '" + $b.getName() + "'");
+end
