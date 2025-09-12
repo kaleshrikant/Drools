@@ -1,0 +1,36 @@
+package rules;
+
+import com.kaleshrikant.drools.control.model.Patron;
+
+global org.slf4j.Logger logger;
+
+rule "Log Premium Patron"
+    salience 100
+    when
+        $patron : Patron(
+            name != null,
+            premium == true
+        )
+    then
+        logger.info("🥇 Premium Patron detected: {}", $patron.getName());
+end
+
+rule "Apply Discount"
+    salience 50
+    when
+        $patron : Patron(
+            premium == true,
+            purchaseAmount >= 10000
+        )
+    then
+        double discount = $patron.getPurchaseAmount() * 0.10;
+        logger.info("🥈 Applied discount ₹{} for {}", discount, $patron.getName());
+end
+
+rule "Send Notification"
+    salience 10
+    when
+       $patron : Patron(name != null)
+    then
+         logger.info("🥉 Notification sent to {}", $patron.getName());
+end
