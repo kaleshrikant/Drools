@@ -1,0 +1,37 @@
+package rules;
+
+import com.kaleshrikant.drools.control.model.AccountHolder;
+
+global org.slf4j.Logger logger;
+
+rule "Validate AccountHolder"
+    agenda-group "validation"
+    lock-on-active true
+    salience 100
+    when
+        $acc : AccountHolder(
+            status == "NEW",
+            age >= 18
+        )
+    then
+        modify($acc) {
+            setStatus("VALIDATED")
+        }
+        logger.info("🔍 AccountHolder '{}' validated", $acc.getName());
+end
+
+rule "Approve Client"
+    agenda-group "approval"
+    lock-on-active true
+    salience 50
+    when
+        $acc : AccountHolder(
+            status == "VALIDATED",
+            age >= 18
+        )
+    then
+        modify($acc) {
+            setStatus("APPROVED")
+        }
+        logger.info("✅ AccountHolder '{}' approved", $acc.getName());
+end
