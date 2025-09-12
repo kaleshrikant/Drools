@@ -1,0 +1,20 @@
+package rules;
+
+import com.kaleshrikant.drools.keywords.model.PersonaData;
+
+global org.slf4j.Logger logger;
+
+rule "Increment Age on Birthday"
+    when
+        $person : PersonaData(
+            name != null,
+            age > 0,
+            birthdayToday == true
+        )
+    then
+        int newAge = $person.getAge() + 1;
+        $person.setBirthdayToday(false);
+        $person.setAge(newAge);
+        update($person);
+        logger.info("🎂 Updated age for {} to {}", $person.getName(), newAge);
+end
