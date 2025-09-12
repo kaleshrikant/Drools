@@ -1,0 +1,47 @@
+package rules;
+
+import com.kaleshrikant.drools.control.model.Member;
+
+global java.util.List logCollector;
+
+rule "Tier 1 Loan"
+    activation-group "loan-tier"
+    salience 100
+        when
+            $m : Member(
+                loanAmount >= 20000
+            )
+        then
+            modify($m) {
+                setLoanTier("TIER_1");
+            }
+        logCollector.add("🟢 Tier 1 loan assigned to '" + $m.getName() + "'");
+end
+
+rule "Tier 2 Loan"
+    activation-group "loan-tier"
+    salience 80
+        when
+            $m: Member(
+                loanAmount >= 10000
+            )
+        then
+            modify($m) {
+                setLoanTier("TIER_2");
+            }
+        logCollector.add("🟡 Tier 2 loan assigned to '" + $m.getName() + "'");
+end
+
+rule "Tier 3 Loan"
+    activation-group "loan-tier"
+    salience 60
+        when
+            $m : Member(
+                loanAmount < 10000
+            )
+        then
+            modify($m) {
+                setLoanTier("TIER_3");
+            }
+        logCollector.add("🔴 Tier 3 loan assigned to '" + $m.getName() + "'");
+end
