@@ -1,0 +1,15 @@
+package rules;
+
+import com.kaleshrikant.drools.keywords.model.Applicant;
+
+global org.slf4j.Logger logger;
+
+rule "Count Senior Applicants"
+when
+    $count : Number(intValue > 2) from accumulate(
+        Applicant(age >= 60),
+        count(1)
+    )
+then
+    System.out.println("Senior applicant count is high: " + $count);
+end
