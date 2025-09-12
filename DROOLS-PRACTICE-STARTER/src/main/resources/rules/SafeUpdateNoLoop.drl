@@ -1,0 +1,19 @@
+package rules;
+
+import com.kaleshrikant.drools.control.model.ClientProfile;
+
+global org.slf4j.Logger logger;
+
+rule "Verify Persona if Age > 30"
+    no-loop true
+    when
+        $client : ClientProfile(
+            status.equals("NEW"),
+            age > 30
+        )
+    then
+        modify($client) {
+            setStatus("VERIFIED")
+        }
+        logger.info("✅ Status updated to VERIFIED for {}", $client.getName());
+end
