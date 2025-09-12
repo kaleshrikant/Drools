@@ -1,0 +1,20 @@
+package rules;
+
+import com.kaleshrikant.drools.keywords.model.PersonaData;
+import com.kaleshrikant.drools.keywords.model.DependentFact;
+
+global org.slf4j.Logger logger;
+
+rule "Remove DependentFacts for Senior Person"
+    when
+        $personFact : PersonaData(
+           name != null,
+           age > 60
+         )
+        $dependentFact : DependentFact(
+          parentName == $personFact.getName()
+        )
+    then
+        retract($dependentFact);
+        logger.info("🧹 Removed DependentFact for child '{}' of senior '{}'", $dependentFact.getChildName(), $personFact.getName());
+end

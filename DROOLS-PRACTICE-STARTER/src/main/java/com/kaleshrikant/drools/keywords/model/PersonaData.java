@@ -16,6 +16,11 @@ public class PersonaData {
 		this.birthdayToday = birthdayToday;
 	}
 
+	public PersonaData(String name, int age) {
+		this.name = name;
+		this.age = age;
+	}
+
 	public String getName() { return name; }
 	public int getAge() { return age; }
 	public boolean isBirthdayToday() { return birthdayToday; }
