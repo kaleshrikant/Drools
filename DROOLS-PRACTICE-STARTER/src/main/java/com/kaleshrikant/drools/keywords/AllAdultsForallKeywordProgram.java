@@ -8,6 +8,26 @@ import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 /**
+ * 🧑‍💼 AllAdultsForallKeywordProgram via Drools
+ *
+ * 🧾 Collects AdultCandidate facts (age ≥ 18) for each PhraseInput
+ *    📤 Inserts candidates and phrases into KieSession
+ *    🔍 Rule matches adults and stores them in PhraseInput.adults
+ *    🧑‍💼 Logs each matched adult with name and age
+ *
+ * ✅ Uses SLF4J logger for structured output
+ * 🔁 update() triggers downstream rule evaluation
+ * 🧹 Session disposed after rule execution
+ *
+ * 🖨️ Sample Output:
+ * 🔍 Phrase 'Adults for Pune' matched 2 adults
+ * 🧑‍💼 Aarav (age 22)
+ * 🧑‍💼 Rohan (age 35)
+ *
+ * 🔍 Phrase 'Adults for Mumbai' matched 2 adults
+ * 🧑‍💼 Aarav (age 22)
+ * 🧑‍💼 Rohan (age 35)
+ *
  * @author Shrikant Kale
  * @Date 11 Sep 2025
  */
