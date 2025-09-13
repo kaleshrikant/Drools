@@ -8,6 +8,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * 💰 Tiered Discount Evaluation via Drools
+ *
+ * 🧾 Applies rule-based discounts to Order facts:
+ *    💎 PREMIUM → 15% if amount > 1000
+ *    📦 BULK → 10% if itemCount ≥ 10
+ *    🛒 REGULAR → 5% if amount > 500 and no prior discount
+ *
+ * ✅ Logs final discount using SLF4J
+ * 🔁 Uses update() to trigger re-evaluation
+ *
  * @author Shrikant Kale
  * @Date 11 Sep 2025
  */
