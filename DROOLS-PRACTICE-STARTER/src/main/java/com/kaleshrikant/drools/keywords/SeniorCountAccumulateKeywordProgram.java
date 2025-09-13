@@ -8,6 +8,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * 👵 SeniorCountAccumulateKeywordProgram via Drools
+ *
+ * 🧾 Counts Applicant facts with age ≥ 60 using accumulate:
+ *    📊 Fires rule only if senior count > 2
+ *    🖨️ Logs total senior applicants to console
+ *
+ * 📤 Inserts Applicant facts into KieSession
+ * ✅ Uses accumulate() with count(1)
+ * 🧹 Session disposed after rule execution
+ *
+ * 🖨️ Sample Output:
+ * Senior applicant count is high: 3
+ *
  * @author Shrikant Kale
  * @Date 11 Sep 2025
  */
