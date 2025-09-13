@@ -1,0 +1,19 @@
+package rules;
+
+import com.kaleshrikant.drools.cep.model.SessionWindow;
+import com.kaleshrikant.drools.cep.model.UserActionEvent;
+
+global java.util.List logCollector;
+
+declare UserActionEvent
+    @role(event)
+    @timestamp(timestamp)
+end
+
+rule "User action occurred during session window"
+when
+    $session : SessionWindow($start : startTime, $end : endTime)
+    $action : UserActionEvent(timestamp >= $start && timestamp <= $end)
+then
+    logCollector.add("✅ Valid action by " + $action.getUserId() + " during session window.");
+end
