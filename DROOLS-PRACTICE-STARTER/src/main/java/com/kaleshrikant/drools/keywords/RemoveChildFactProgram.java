@@ -9,6 +9,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * 🧹 RemoveChildFactProgram via Drools
+ *
+ * 🧾 Removes DependentFact entries for senior PersonaData (age > 60)
+ *    👤 Matches parent by name
+ *    🧹 Retracts associated child facts from working memory
+ *
+ * 📤 Inserts parent and child facts into KieSession
+ * ✅ Uses retract() to clean up dependents
+ * 🧹 Session disposed after rule execution
+ *
+ * 🖨️ Sample Output:
+ *  🧹 Removed DependentFact for child 'ChildA' of senior 'Shrikant'
+ *  🧹 Removed DependentFact for child 'ChildB' of senior 'Shrikant'
+ *
  * @author Shrikant Kale
  * @Date 12 Sep 2025
  */
