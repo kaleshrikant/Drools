@@ -40,11 +40,11 @@ public class LoginBeforeTemporalRuleProgram {
 		// 3️⃣ Create KieSession directly
 		KieSession kieSession = kieContainer.newKieSession("ksession-rules"); // match name in kmodule.xml
 
-		// 4️⃣Inject logger into Drools
+		// 4️⃣ Inject logger into Drools
 		List<String> logCollector = new ArrayList<>();
 		kieSession.setGlobal("logCollector", logCollector);
 
-		// 5️⃣Event Insertion
+		// 5️⃣ Event Insertion
 		LocalDateTime now = LocalDateTime.now();
 		long loginTs = now.plusMinutes(5).toInstant(ZoneOffset.UTC).toEpochMilli();
 		long purchaseTs = now.plusMinutes(10).toInstant(ZoneOffset.UTC).toEpochMilli();
@@ -55,7 +55,7 @@ public class LoginBeforeTemporalRuleProgram {
 		kieSession.insert(login);
 		kieSession.insert(purchase);
 
-		// 6️⃣Fire all rules
+		// 6️⃣ Fire all rules
 		kieSession.fireAllRules();
 
 		// 7️⃣ Dispose the session
