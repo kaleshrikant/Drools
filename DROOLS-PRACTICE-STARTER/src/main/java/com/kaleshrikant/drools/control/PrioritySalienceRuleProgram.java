@@ -7,12 +7,22 @@ import org.kie.api.runtime.KieSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 /**
- * Scenario
- * We have multiple rules:
- *      🥇 High-priority rule: logs premium Patron
- *      🥈 Medium-priority rule: applies discount
- *      🥉 Low-priority rule: sends notification
- * Use salience to ensure they fire in the correct order.
+ * 🎯 PrioritySalienceRuleProgram via Drools
+ *
+ * 🧾 Executes Patron rules in priority order using salience:
+ *    🥇 Logs premium patrons (salience 100)
+ *    🥈 Applies 10% discount if purchaseAmount ≥ ₹10,000 (salience 50)
+ *    🥉 Sends notification to all patrons (salience 10)
+ *
+ * 📤 Inserts Patron facts into KieSession
+ * ✅ Salience ensures correct rule firing sequence
+ * 🧹 Session disposed after rule execution
+ *
+ * 🖨️ Sample Output:
+ *  🥇 Premium Patron detected: Shrikant
+ *  🥈 Applied discount ₹1200.0 for Shrikant
+ *  🥉 Notification sent to Shrikant
+ *  🥉 Notification sent to Meera
  *
  * @author Shrikant Kale
  * @Date 12 Sep 2025
