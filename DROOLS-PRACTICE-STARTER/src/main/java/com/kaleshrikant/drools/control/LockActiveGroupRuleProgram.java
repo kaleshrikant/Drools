@@ -8,15 +8,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * To demonstrate how to use agenda groups and lock-on-active to control rule execution order and
- * prevent re-triggering when facts are modified.
+ * 🔐 LockActiveGroupRuleProgram via Drools
  *
- * Stage 1: Validate client → updates status to "VALIDATED"
+ * 🧾 Two-stage client onboarding using agenda groups:
+ *    🔍 validation → Marks AccountHolder as VALIDATED if age ≥ 18 and status == "NEW"
+ *    ✅ approval → Marks AccountHolder as APPROVED if status == "VALIDATED"
  *
- * Stage 2: Approve client → updates status to "APPROVED" We use agenda-group
- * to control execution order and lock-on-active to prevent rules from re-firing when facts are modified.
+ * 📦 Uses lock-on-active to prevent rule re-triggering on fact updates
+ * 📤 Inserts ClientProfile facts into KieSession
+ * 🧹 Session disposed after rule execution
  *
- * This is ideal for onboarding scenarios involving staged rule flows, fact updates, and controlled rule firing.
+ * 🖨️ Sample Output:
+ *  🔍 AccountHolder 'Shrikant' validated
+ *  ✅ AccountHolder 'Shrikant' approved
  *
  * @author Shrikant Kale
  * @Date 12 Sep 2025
