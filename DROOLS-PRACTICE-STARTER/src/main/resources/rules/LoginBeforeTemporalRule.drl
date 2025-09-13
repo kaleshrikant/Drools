@@ -1,0 +1,48 @@
+/*
+🧠 @role(event)
+    This tells Drools:
+    “Treat this fact as a time-aware event, not just static data.”
+🔍 What It Does:
+    Enables temporal reasoning (e.g. after, before, over window:time(10m))
+    Allows Drools to track when the event occurred
+
+⏱️ @timestamp(timestamp)
+    This tells Drools:
+    “Use the timestamp field in this class as the event’s time marker.”
+🔍 What It Does:
+    Associates the event with a specific moment in time
+    Enables Drools to compare events chronologically
+    Must point to a long or Date field
+
+🔁 How They Work Together
+    new LoginEvent("user123", System.currentTimeMillis())
+🔍 Drools knows:
+    It’s an event (not just a POJO)
+    It occurred at a specific timestamp
+    It can now compare it with other events using temporal operators like after, before, coincides, etc.
+*/
+
+package rules;
+
+import com.kaleshrikant.drools.cep.model.LoginEvent;
+import com.kaleshrikant.drools.cep.model.PurchaseEvent;
+
+global java.util.List logCollector;
+
+declare LoginEvent
+    @role( event )
+    @timestamp( timestamp )
+end
+
+declare PurchaseEvent
+    @role( event )
+    @timestamp( timestamp )
+end
+
+rule "Login before Purchase within 15 minutes"
+when
+    $login : LoginEvent( )
+    $purchase : PurchaseEvent( this after[0m,15m] $login )
+then
+    logCollector.add("✅ Rule fired: " + $login.getUserId() + " logged in before purchase.");
+end
