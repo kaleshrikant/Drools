@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * ⏱️ LoginBeforeTemporalRuleProgram via Drools CEP
  *
@@ -33,10 +34,10 @@ public class LoginBeforeTemporalRuleProgram {
 		// 1️⃣ Get KieServices
 		KieServices kieServices = KieServices.Factory.get();
 
-		// 2️⃣Get KieContainer
+		// 2️⃣ Get KieContainer
 		KieContainer kieContainer = kieServices.getKieClasspathContainer();
 
-		// 3️⃣Create KieSession directly
+		// 3️⃣ Create KieSession directly
 		KieSession kieSession = kieContainer.newKieSession("ksession-rules"); // match name in kmodule.xml
 
 		// 4️⃣Inject logger into Drools
