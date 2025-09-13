@@ -7,6 +7,21 @@ import org.kie.api.runtime.KieSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 /**
+ * 💰 InsertDiscountFactProgram via Drools
+ *
+ * 🧾 Applies festival-season discounts to Customer facts:
+ *    💎 PREMIUM → 15% if purchaseAmount ≥ ₹10,000
+ *    🛍️ REGULAR → 5% if purchaseAmount ≥ ₹1,000
+ *    ✅ Only applies if isFestivalSeason == true
+ *
+ * 📤 Inserts Customer facts into KieSession
+ * 📦 Creates and inserts DiscountFact with calculated discount
+ * 🖨️ Logs discount insertion to console
+ *
+ * 🖨️ Sample Output:
+ * Inserted DiscountFact for Premium Customer :: Shrikant with ₹1800.0
+ * Inserted DiscountFact for Regular Customer :: Prashant with ₹750.0
+ *
  * @author Shrikant Kale
  * @Date 12 Sep 2025
  */
