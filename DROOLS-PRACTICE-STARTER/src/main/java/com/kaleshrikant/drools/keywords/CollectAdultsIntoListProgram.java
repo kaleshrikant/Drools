@@ -11,6 +11,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 🧑‍💼 CollectAdultsIntoListProgram via Drools
+ *
+ * 🧾 Adds Individual facts (age ≥ 18) to a global adultList
+ *    📤 Inserts individuals into KieSession
+ *    ✅ Rule filters by age and name, then adds to list
+ *    🧑‍💼 Logs each adult added using SLF4J
+ *
+ * 🔁 Uses update() to trigger downstream rules (if any)
+ * 🧹 Session disposed after rule execution
+ *
+ * 🖨️ Sample Output:
+ * 🧑‍💼 Added adult: Aarav (age 22)
+ * 🧑‍💼 Added adult: Rohan (age 35)
+ * ✅ Final list of adults:
+ * 🧑‍💼 Aarav (age 22)
+ * 🧑‍💼 Rohan (age 35)
+ *
  * @author Shrikant Kale
  * @Date 11 Sep 2025
  */
