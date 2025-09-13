@@ -7,6 +7,20 @@ import org.kie.api.runtime.KieSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 /**
+ * 🎂 UpdatePersonAgeProgram via Drools
+ *
+ * 🧾 Increments age for PersonaData facts with birthdayToday == true:
+ *    🎂 Adds +1 to age
+ *    ✅ Resets birthdayToday to false
+ *    🔁 Uses update() to trigger downstream rules
+ *
+ * 📤 Inserts PersonaData facts into KieSession
+ * 🧹 Session disposed after rule execution
+ *
+ * 🖨️ Sample Output:
+ * 🎂 Updated age for Shrikant to 35
+ * 🎂 Updated age for Prashant to 33
+ *
  * @author Shrikant Kale
  * @Date 12 Sep 2025
  */
