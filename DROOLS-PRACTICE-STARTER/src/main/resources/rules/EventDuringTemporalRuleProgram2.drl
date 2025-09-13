@@ -1,0 +1,31 @@
+package rules;
+
+import com.kaleshrikant.drools.cep.model.LoginEvent2;
+import com.kaleshrikant.drools.cep.model.PurchaseEvent2;
+
+global java.util.List logCollector;
+
+// Declare LoginEvent2 as interval event (has duration)
+declare LoginEvent2
+    @role( event )
+    @timestamp( timestamp )
+    @duration( duration )
+end
+
+// Declare PurchaseEvent2 as point event (no duration)
+declare PurchaseEvent2
+    @role( event )
+    @timestamp( timestamp )
+end
+
+rule "Purchase DURING Login - True CEP"
+when
+    $login : LoginEvent2()
+    $purchase : PurchaseEvent2(
+        getUser().equals($login.getUser()),
+        this during $login
+    )
+then
+    logCollector.add("🎯 TRUE CEP: " + $purchase.getUser() +
+                     " purchased DURING login session using Drools temporal operator");
+end

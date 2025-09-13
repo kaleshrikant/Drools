@@ -1,5 +1,11 @@
 <kmodule xmlns="http://www.drools.org/xsd/kmodule">
+    <!-- Existing rule base -->
     <kbase name="rules" packages="rules">
         <ksession name="ksession-rules"/>
+    </kbase>
+
+    <!-- NEW: Only for true CEP programs -->
+    <kbase name="cep-rules" packages="rules" eventProcessingMode="stream">
+        <ksession name="ksession-cep" type="stateful" clockType="realtime"/>
     </kbase>
 </kmodule>
