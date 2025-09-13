@@ -7,6 +7,22 @@ import org.kie.api.runtime.KieSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 /**
+ * 🏙️ City Extraction from Keyword via Drools
+ *
+ * 🧾 Extracts city name from KeywordInput using regex match:
+ *    🏙️ BANGALORE → matches "bengaluru" or "bangalore"
+ *    🏙️ MUMBAI → matches "mumbai"
+ *    🏙️ PUNE → matches "pune"
+ *
+ * 📤 Inserts keyword phrases into KieSession
+ * ✅ Sets city field in KeywordInput if matched
+ * 🔁 update() triggers downstream rules
+ *
+ * 🖨️ Sample Output:
+ * 🏙️ Extracted city: Bangalore from keyword 'Best food in Bangalore East'
+ * 🏙️ Extracted city: Mumbai from keyword 'Mumbai local train timings'
+ * 🏙️ Extracted city: Pune from keyword 'Weather update for Pune'
+ *
  * @author Shrikant Kale
  * @Date 11 Sep 2025
  */
