@@ -8,6 +8,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * 🧒 MinorCheckNotKeywordProgram via Drools
+ *
+ * 🧾 Classifies Student facts and checks guardian status:
+ *    🧒 Marks students as minors if age < 18 and minor == false
+ *    ⚠️ Warns if any minor lacks a guardian (using not keyword)
+ *    📊 Accumulates and logs total number of minors
+ *
+ * 📤 Inserts Student facts into KieSession
+ *    ✅ Uses update() to trigger downstream rules
+ *    🧹 Session disposed after rule execution
+ *
+ * 🖨️ Sample Output:
+ *    🧒 Aarav is marked as a minor.
+ *    🧒 Isha is marked as a minor.
+ *    ⚠️ Minor Aarav has no guardian assigned!
+ *    ⚠️ Minor Isha has no guardian assigned!
+ * 📊 Total minors identified: 3
+ *
  * @author Shrikant Kale
  * @Date 11 Sep 2025
  */
