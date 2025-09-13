@@ -1,0 +1,31 @@
+package rules;
+
+import com.kaleshrikant.drools.control.model.Participant;
+
+global java.util.List logCollector;
+
+rule "Check Eligibility"
+    ruleflow-group "visa-eligibility"
+    when
+        $p : Participant(age >= 18, eligible == false)
+    then
+        modify($p) { setEligible(true) }
+        logCollector.add("🧪 Eligibility passed for '" + $p.getName() + "'");
+end
+
+rule "Verify Documents"
+    ruleflow-group "visa-documents"
+    when
+        $p : Participant(eligible == true, documentsSubmitted == true)
+    then
+        logCollector.add("📄 Documents verified for '" + $p.getName() + "'");
+end
+
+rule "Approve Visa"
+    ruleflow-group "visa-approval"
+    when
+        $p : Participant(eligible == true, documentsSubmitted == true, approved == false)
+    then
+        modify($p) { setApproved(true) }
+        logCollector.add("✅ Visa approved for '" + $p.getName() + "'");
+end
