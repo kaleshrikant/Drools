@@ -11,6 +11,19 @@ import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 /**
+ * ⏱️ LoginBeforeTemporalRuleProgram via Drools CEP
+ *
+ * 🧾 Detects temporal event sequence:
+ *    ✅ Fires if PurchaseEvent occurs within 15 minutes after LoginEvent
+ *    🧠 Uses @role(event) and @timestamp(timestamp) for time-aware reasoning
+ *
+ * 📤 Inserts LoginEvent and PurchaseEvent with future timestamps
+ * 📦 Uses logCollector to track rule firing
+ * 🧹 Session disposed after rule execution
+ *
+ * 🖨️ Sample Output:
+ *  ✅ Rule fired: Shrikant logged in before purchase.
+ *
  * @author Shrikant Kale
  * @Date 13 Sep 2025
  */
@@ -20,10 +33,10 @@ public class LoginBeforeTemporalRuleProgram {
 		// 1️⃣ Get KieServices
 		KieServices kieServices = KieServices.Factory.get();
 
-		// 2️️⃣ Get KieContainer
+		// 2️⃣Get KieContainer
 		KieContainer kieContainer = kieServices.getKieClasspathContainer();
 
-		// 3️️⃣ Create KieSession directly
+		// 3️⃣Create KieSession directly
 		KieSession kieSession = kieContainer.newKieSession("ksession-rules"); // match name in kmodule.xml
 
 		// 4️⃣Inject logger into Drools
