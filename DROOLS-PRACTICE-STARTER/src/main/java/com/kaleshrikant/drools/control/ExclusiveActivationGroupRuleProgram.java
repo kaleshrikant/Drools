@@ -10,17 +10,22 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * designed to demonstrate how to use the powerful Drools feature: activation-group,
- * which ensures only one rule in the group fires, even if multiple match.
+ * 🏦 ExclusiveActivationGroupRuleProgram via Drools
  *
- * This is perfect for onboarding scenarios involving conflicting decisions, priority-based selection, or mutually exclusive actions
- * — and yes, we’ll use your preferred logCollector pattern for audit clarity.
+ * 🧾 Assigns loan tiers to Member facts using activation-group "loan-tier":
+ *    🟢 TIER_1 → loanAmount ≥ ₹20,000
+ *    🟡 TIER_2 → loanAmount ≥ ₹10,000
+ *    🔴 TIER_3 → loanAmount < ₹10,000
  *
- * We have a Borrower with a loan request. We want to apply one of three loan tiers based on amount:
- * 🟢 Tier 1: ₹ ≥ 20,000
- * 🟡 Tier 2: ₹ ≥ 10,000
- * 🔴 Tier 3: ₹ < 10,000
- * Only one rule should fire, even if multiple match — so we use activation-group "loan-tier".
+ * 📦 Uses activation-group to ensure only one tier rule fires per Member
+ * 📤 Inserts Member facts into KieSession
+ * 🧾 Logs tier assignment via logCollector
+ * 🧹 Session disposed after rule execution
+ *
+ * 🖨️ Sample Output:
+ *  🟢 Tier 1 loan assigned to 'Shrikant'
+ *  🟡 Tier 2 loan assigned to 'Meera'
+ *  🔴 Tier 3 loan assigned to 'Ravi'
  *
  * @author Shrikant Kale
  * @Date 12 Sep 2025
