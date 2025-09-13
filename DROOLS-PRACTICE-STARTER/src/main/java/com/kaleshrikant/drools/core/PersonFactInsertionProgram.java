@@ -6,6 +6,15 @@ import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
 /**
+ * 🧑‍⚖️ Person Age Classification via Drools
+ *
+ * 🧾 Evaluates Person facts to classify by age:
+ *    ✅ Adult → age ≥ 18
+ *    🧒 Minor → age ≤ 18
+ *
+ * 📤 Prints classification result to console
+ * 🔥 Rules fire on fact insertion
+ *
  * @author Shrikant Kale
  * @Date 9/11/25
  */
