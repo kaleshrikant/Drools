@@ -6,6 +6,25 @@ import org.kie.api.runtime.KieSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 /**
+ * 🔢 EvenAgeEvalKeywordProgram via Drools
+ *
+ * 🧾 Classifies AgeCandidate facts by even/odd age:
+ *    🔢 Marks even ages and sets evenAge = true
+ *    🔹 Logs odd ages without modifying the fact
+ *    📊 Accumulates and logs total count of even-aged people
+ *
+ * 📤 Inserts candidates into KieSession
+ * ✅ Uses eval() for modulus check
+ * 🔁 update() triggers re-evaluation
+ * 🧹 Session disposed after rule execution
+ *
+ * 🖨️ Sample Output:
+ * 🔢 Aarav has an even age: 22
+ * 🔹 Meera has an odd age: 35
+ * 🔢 Rohan has an even age: 40
+ * 🔹 Isha has an odd age: 27
+ * 📊 Total people with even age: 2
+ *
  * @author Shrikant Kale
  * @Date 11 Sep 2025
  */
