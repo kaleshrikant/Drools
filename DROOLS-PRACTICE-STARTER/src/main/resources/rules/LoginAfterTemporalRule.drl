@@ -1,0 +1,89 @@
+/*
+🧠 @role(event)
+    This tells Drools:
+    "Treat this fact as a time-aware event, not just static data."
+🔍 What It Does:
+    Enables temporal reasoning (e.g. after, before, over window:time(10m))
+    Allows Drools to track when the event occurred
+
+⏱️ @timestamp(timestamp)
+    This tells Drools:
+    "Use the timestamp field in this class as the event's time marker."
+🔍 What It Does:
+    Associates the event with a specific moment in time
+    Enables Drools to compare events chronologically
+    Must point to a long or Date field
+
+🎯 salience 100
+    This tells Drools:
+    "Give this rule higher priority than others."
+🔍 What It Does:
+    Rules with higher salience fire FIRST (default is 0)
+    Ensures this rule executes before competing rules
+    Prevents conflicts when multiple rules match the same facts
+
+🔄 this after[0m,15m] $login
+    This tells Drools:
+    "Find PurchaseEvents that happened AFTER LoginEvent within 0-15 minutes."
+🔍 What It Does:
+    Temporal operator that compares event timestamps
+    [0m,15m] = time window from 0 to 15 minutes after login
+    'this' refers to the current PurchaseEvent being evaluated
+
+📊 eval( $purchase.getTimestamp() > $login.getTimestamp() )
+    This tells Drools:
+    "Double-check that purchase timestamp is actually greater than login timestamp."
+🔍 What It Does:
+    Additional safety check for temporal ordering
+    Ensures we have the right chronological sequence
+    Prevents edge cases where temporal operators might be ambiguous
+
+🗑️ retract($login); retract($purchase);
+    This tells Drools:
+    "Remove these facts from working memory after rule fires."
+🔍 What It Does:
+    Prevents other rules from using the same facts
+    Ensures only ONE rule fires per fact combination
+    Cleans up working memory for performance
+
+🔁 How They All Work Together
+    LoginEvent at 10:05 AM → PurchaseEvent at 10:10 AM
+🔍 Drools Process:
+    1. Identifies both as time-aware events (@role, @timestamp)
+    2. This rule gets priority (salience 100)
+    3. Checks if purchase is 0-15 minutes after login ✅
+    4. Double-checks timestamp ordering with eval() ✅
+    5. Fires rule → adds log message
+    6. Removes facts from memory → prevents other rules from firing
+*/
+
+
+package rules;
+
+import com.kaleshrikant.drools.cep.model.LoginEvent;
+import com.kaleshrikant.drools.cep.model.PurchaseEvent;
+
+global java.util.List logCollector;
+
+declare LoginEvent
+    @role( event )
+    @timestamp( timestamp )
+end
+
+declare PurchaseEvent
+    @role( event )
+    @timestamp( timestamp )
+end
+
+rule "Purchase after Login within 15 minutes"
+salience 100
+when
+    $login : LoginEvent()
+    $purchase : PurchaseEvent( this after[0m,15m] $login )
+    eval( $purchase.getTimestamp() > $login.getTimestamp() )
+then
+    logCollector.add("✅ Rule fired: " + $purchase.getUserId() + " made purchase AFTER login.");
+    // Prevent other rules from firing by retracting the facts
+    retract($login);
+    retract($purchase);
+end
