@@ -7,8 +7,18 @@ import org.kie.api.runtime.KieSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 /**
- * ClientProfile fact with a status field.
- * If the status is "NEW" and age > 30, we update it to "VERIFIED" — but don’t want the rule to re-trigger after the update.
+ * 🛡️ SafeUpdateNoLoopProgram via Drools
+ *
+ * 🧾 Verifies ClientProfile facts with:
+ *    ✅ status == "NEW"
+ *    ✅ age > 30
+ *
+ * 🔁 Uses no-loop to prevent rule re-triggering after status update
+ * 📤 Inserts ClientProfile facts into KieSession
+ * 🧹 Session disposed after rule execution
+ *
+ * 🖨️ Sample Output:
+ *  ✅ Status updated to VERIFIED for Shrikant
  *
  * @author Shrikant Kale
  * @Date 12 Sep 2025

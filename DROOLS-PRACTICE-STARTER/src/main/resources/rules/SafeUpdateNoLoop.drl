@@ -17,3 +17,4 @@ rule "Verify Persona if Age > 30"
         }
         logger.info("✅ Status updated to VERIFIED for {}", $client.getName());
 end
+
