@@ -1,0 +1,25 @@
+package rules;
+
+import com.kaleshrikant.drools.cep.model.TaskEvent ;
+import com.kaleshrikant.drools.cep.model.WebinarEvent ;
+
+ declare TaskEvent
+     @role( event )
+     @timestamp( startTime )
+     @duration( duration )
+ end
+
+ declare WebinarEvent
+     @role( event )
+     @timestamp( startTime )
+     @duration( duration )
+ end
+
+ rule "Task Meets Webinar Rule"
+ when
+     $task : TaskEvent()
+     $webinar : WebinarEvent( this meets $task )
+ then
+      System.out.println("✅ Rule triggered: Task '" + $task.getName() +
+                       "' ends exactly when Webinar '" + $webinar.getName() + "' starts!");
+ end
