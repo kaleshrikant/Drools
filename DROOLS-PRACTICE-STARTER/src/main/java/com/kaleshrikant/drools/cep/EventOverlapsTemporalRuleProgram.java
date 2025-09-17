@@ -10,6 +10,50 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 📅 EventOverlapsTemporalRuleProgram via Drools CEP
+ *
+ * 🧾 Executes temporal rules on complex event scenarios:
+ * ────────────────────────────────────────────────────────────
+ * 🔴 Room Booking Conflict → Same room double-booked
+ * ⚠️ High Priority Meeting Overlap → Priority ≥ 8 meetings overlap
+ * 🔧 Maintenance During Business Hours → Non-emergency overlaps with meetings (9–17h)
+ * 📊 Virtual Meeting Capacity Warning → Virtual meeting > 50 attendees
+ * 🚨 Emergency Maintenance Priority → Emergency overlaps with any active event
+ * ⏰ Long Meeting Duration Warning → Meeting > 180 minutes
+ * 📈 Resource High Utilization → ≥ 3 active bookings for same resource
+ * 🏢 Exclusive Location Conflict → Exclusive booking overlaps with other event
+ *
+ * 📦 Uses `EventConflict` and `EventAlert` objects
+ * 📤 Adds conflicts to `global List conflicts`
+ * 📤 Adds alerts to `global List alerts`
+ * 🧠 Uses `.overlaps()` method for temporal matching
+ * 📋 Scenario includes meetings, bookings, maintenance, and virtual events
+ * 🧹 Session disposed after rule execution
+ *
+ * 🖨️ Sample Output:
+ * 📊 EXECUTION RESULTS:
+ * Rules fired: 8
+ * Conflicts detected: 5
+ * Alerts generated: 3
+ *
+ * 🔥 CONFLICTS DETECTED:
+ * 🔴 ROOM_DOUBLE_BOOKING → Resolution: RESCHEDULE_REQUIRED
+ * ⚠️ HIGH_PRIORITY_OVERLAP
+ * 🚨 EMERGENCY_PRIORITY → Resolution: SUSPEND_OTHER_EVENT
+ * 🔧 MAINTENANCE_BUSINESS_HOURS → Resolution: RESCHEDULE_MAINTENANCE
+ * 🏢 EXCLUSIVE_LOCATION → Resolution: RELOCATE_EVENT
+ *
+ * 🚨 ALERTS GENERATED:
+ * 📊 CAPACITY_WARNING
+ * ⏰ DURATION_WARNING
+ * 📈 UTILIZATION_HIGH
+ *
+ * 📈 ANALYSIS SUMMARY:
+ * Critical conflicts (severity ≥ 8): 3
+ * High-priority alerts (priority ≥ 7): 1
+ * ⚠️ IMMEDIATE ACTION REQUIRED for critical conflicts!
+ * ✅ Temporal rule analysis complete.
+ *
  * @author Shrikant Kale
  * @Date 15 Sep 2025
  */
