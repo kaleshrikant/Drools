@@ -6,6 +6,10 @@
 
     <!-- NEW: Only for true CEP programs -->
     <kbase name="cep-rules" packages="rules" eventProcessingMode="stream">
-        <ksession name="ksession-cep" type="stateful" clockType="realtime"/>
+        <ksession name="ksession-cep" type="stateful" clockType="pseudo"/>
+    </kbase>
+
+    <kbase name="event-temporal-kbase" packages="rules">
+        <ksession name="event-temporal-ksession"/>
     </kbase>
 </kmodule>

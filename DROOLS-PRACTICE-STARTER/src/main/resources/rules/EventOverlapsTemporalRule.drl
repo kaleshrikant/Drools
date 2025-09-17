@@ -1,0 +1,120 @@
+package rules
+
+import com.kaleshrikant.drools.cep.model.Meeting
+import com.kaleshrikant.drools.cep.model.ResourceBooking
+import com.kaleshrikant.drools.cep.model.MaintenanceEvent
+import com.kaleshrikant.drools.cep.model.Event
+import com.kaleshrikant.drools.cep.model.EventConflict
+import com.kaleshrikant.drools.cep.model.EventAlert
+import java.time.LocalDateTime
+import java.time.Duration
+import java.util.List
+
+global List conflicts
+global List alerts
+
+rule "Room Booking Conflict"
+    when
+        $booking1: ResourceBooking(resourceType == "ROOM", status == "ACTIVE", $room: resourceId)
+        $booking2: ResourceBooking(resourceType == "ROOM", resourceId == $room,
+                                  status == "ACTIVE", this != $booking1,
+                                  this.overlaps($booking1))
+    then
+        EventConflict conflict = new EventConflict($booking1, $booking2, "ROOM_DOUBLE_BOOKING", 8);
+        conflict.setResolution("RESCHEDULE_REQUIRED");
+        conflicts.add(conflict);
+        System.out.println("🔴 Room conflict detected: " + conflict);
+end
+
+rule "High Priority Meeting Overlap"
+    when
+        $meeting1: Meeting(priority >= 8, status == "ACTIVE")
+        $meeting2: Meeting(priority >= 8, status == "ACTIVE", this != $meeting1,
+                          this.overlaps($meeting1))
+    then
+        EventConflict conflict = new EventConflict($meeting1, $meeting2, "HIGH_PRIORITY_OVERLAP", 9);
+        conflicts.add(conflict);
+
+        EventAlert alert = new EventAlert("ALERT-" + System.currentTimeMillis(),
+            "High-priority meetings overlap: " + $meeting1.getName() + " vs " + $meeting2.getName(),
+            "PRIORITY_CONFLICT", 9, $meeting1);
+        alerts.add(alert);
+        System.out.println("⚠️ High priority overlap: " + conflict);
+end
+
+rule "Maintenance During Business Hours"
+    when
+        $maintenance: MaintenanceEvent(emergency == false, status == "ACTIVE",
+                                     startTime.getHour() >= 9, startTime.getHour() <= 17)
+        $meeting: Meeting(status == "ACTIVE", this.overlaps($maintenance))
+    then
+        EventConflict conflict = new EventConflict($maintenance, $meeting, "MAINTENANCE_BUSINESS_HOURS", 6);
+        conflict.setResolution("RESCHEDULE_MAINTENANCE");
+        conflicts.add(conflict);
+        System.out.println("🔧 Maintenance conflict: " + conflict);
+end
+
+rule "Virtual Meeting Capacity Warning"
+    when
+        $meeting: Meeting(virtual == true, attendeeCount > 50, status == "ACTIVE")
+    then
+        EventAlert alert = new EventAlert("CAP-" + $meeting.getId(),
+            "Large virtual meeting scheduled: " + $meeting.getName() + " (" + $meeting.getAttendeeCount() + " attendees)",
+            "CAPACITY_WARNING", 5, $meeting);
+        alerts.add(alert);
+        System.out.println("📊 Capacity warning: " + alert);
+end
+
+rule "Emergency Maintenance Priority"
+    when
+        $emergency: MaintenanceEvent(emergency == true, status == "ACTIVE")
+        $event: Event(status == "ACTIVE", this != $emergency, this.overlaps($emergency))
+    then
+        EventConflict conflict = new EventConflict($emergency, $event, "EMERGENCY_PRIORITY", 10);
+        conflict.setResolution("SUSPEND_OTHER_EVENT");
+        conflicts.add(conflict);
+
+        EventAlert alert = new EventAlert("EMRG-" + System.currentTimeMillis(),
+            "Emergency maintenance conflicts with: " + $event.getName(),
+            "EMERGENCY", 10, $emergency);
+        alerts.add(alert);
+        System.out.println("🚨 Emergency conflict: " + conflict);
+end
+
+rule "Long Meeting Duration Warning"
+    when
+        $meeting: Meeting(this.getDurationMinutes() > 180, status == "ACTIVE")
+    then
+        EventAlert alert = new EventAlert("LONG-" + $meeting.getId(),
+            "Long meeting scheduled: " + $meeting.getName() + " (" + $meeting.getDurationMinutes() + " minutes)",
+            "DURATION_WARNING", 3, $meeting);
+        alerts.add(alert);
+        System.out.println("⏰ Duration warning: " + alert);
+end
+
+rule "Resource High Utilization"
+    when
+        $resource: ResourceBooking($resId: resourceId, $resType: resourceType, status == "ACTIVE")
+        $count: Number(intValue >= 3) from accumulate(
+            ResourceBooking(resourceId == $resId, resourceType == $resType, status == "ACTIVE"),
+            count(1)
+        )
+    then
+        EventAlert alert = new EventAlert("UTIL-" + $resId,
+            "High utilization for " + $resType + " " + $resId + ": " + $count + " bookings",
+            "UTILIZATION_HIGH", 4, $resource);
+        alerts.add(alert);
+        System.out.println("📈 Utilization alert: " + alert);
+end
+
+rule "Exclusive Location Conflict"
+    when
+        $booking1: ResourceBooking(exclusive == true, $loc: location, location != null, status == "ACTIVE")
+        $event: Event(location == $loc, status == "ACTIVE", this != $booking1,
+                     this.overlaps($booking1))
+    then
+        EventConflict conflict = new EventConflict($booking1, $event, "EXCLUSIVE_LOCATION", 7);
+        conflict.setResolution("RELOCATE_EVENT");
+        conflicts.add(conflict);
+        System.out.println("🏢 Location conflict: " + conflict);
+end
