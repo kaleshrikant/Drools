@@ -1,0 +1,19 @@
+package rules;
+
+import com.kaleshrikant.drools.cep.model.TemperatureEvent;
+
+declare TemperatureEvent
+    @role (event)
+    @timestamp (timestamp)
+end
+
+    rule "High Temperature in Sliding 5s Window"
+        when
+            accumulate (
+                $temp  : TemperatureEvent (value > 37) over window:time(5s),
+                $count : count($temp)
+            )
+        then
+        System.out.println("🚨 ALERT: " + $count +
+                               " high temperature readings in last 5s window!");
+    end
