@@ -1,0 +1,30 @@
+package rules;
+
+import com.kaleshrikant.drools.cep.model.SensorEvent;
+import com.kaleshrikant.drools.cep.model.TemperatureEvent;
+
+global java.util.List logCollector;
+
+declare SensorEvent
+    @role( event )
+    @timestamp( time )
+end
+
+rule "📊 Average Temp in Window"
+    when
+        $sum : Number() from accumulate(
+            TemperatureEvent($v : value) over window:length(3),
+            sum($v)
+        )
+        $count : Number() from accumulate(
+            TemperatureEvent() over window:length(3),
+            count()
+        )
+        eval($count.intValue() > 0)
+        eval(($sum.doubleValue() / $count.intValue()) > 30)
+    then
+        double avg = $sum.doubleValue() / $count.intValue();
+        String message = String.format("📊 Average: %.1f°C in last %d events", avg, $count.intValue());
+        logCollector.add(message);
+        System.out.println(message);
+end
