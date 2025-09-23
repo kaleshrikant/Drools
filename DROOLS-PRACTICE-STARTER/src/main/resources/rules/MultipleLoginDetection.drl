@@ -1,0 +1,21 @@
+package rules;
+
+import com.kaleshrikant.drools.cep.model.LoginEvent;
+
+global java.util.List logCollector;
+
+declare LoginEvent
+    @role(event)
+    @timestamp(timestamp)
+    @expires(10s)  // ⏳ Events auto-expire after 10 seconds
+end
+
+// Rule to detect multiple login attempts within 10 seconds
+rule "Detect Multiple Logins"
+    when
+        $first : LoginEvent($userId : userId)
+        $second : LoginEvent(userId == $userId, this != $first) over window:time(10s)
+    then
+        logCollector.add("⚠️ Multiple login detected for user: " + $userId +
+                         " within 10 seconds window!");
+end
