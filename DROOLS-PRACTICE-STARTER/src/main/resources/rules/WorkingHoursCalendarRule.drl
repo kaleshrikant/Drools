@@ -1,0 +1,30 @@
+package rules;
+
+import com.kaleshrikant.drools.cep.model.LoginEvent;
+
+global java.util.List logCollector;
+
+declare LoginEvent
+    @role(event)
+    @timestamp(timestamp)
+end
+
+// Rule to detect login events outside working hours (9 AM - 6 PM)
+rule "Login Outside Working Hours"
+    when
+        $login : LoginEvent($time : timestamp)
+        eval( ($time % 86400000) / 3600000 < 9 || ($time % 86400000) / 3600000 >= 18 ) // extract hour from epoch millis
+    then
+        logCollector.add("⏰ Login outside working hours detected for user: " + $login.getUserId() +
+                         " at timestamp: " + $time);
+end
+
+// Rule for normal working hours (optional, just for logging)
+rule "Login Within Working Hours"
+    when
+        $login : LoginEvent($time : timestamp)
+        eval( ($time % 86400000) / 3600000 >= 9 && ($time % 86400000) / 3600000 < 18 )
+    then
+        logCollector.add("✅ Login within working hours for user: " + $login.getUserId() +
+                         " at timestamp: " + $time);
+end
