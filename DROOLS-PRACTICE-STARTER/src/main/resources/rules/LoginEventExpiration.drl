@@ -1,0 +1,50 @@
+package rules;
+
+import com.kaleshrikant.drools.cep.model.LoginEvent;
+
+global java.util.List logCollector;
+
+declare LoginEvent
+    @role(event)
+    @timestamp(timestamp)
+    @expires(10s)
+end
+
+rule "Detect Active Login Event"
+    when
+        $login : LoginEvent()
+    then
+        long currentTime = kcontext.getKieRuntime().getSessionClock().getCurrentTime();
+        long age = currentTime - $login.getTimestamp();
+        logCollector.add("🔑 ACTIVE: LoginEvent for " + $login.getUserId() +
+                        " | Age: " + age + "ms");
+end
+
+rule "Check Event Status - Manual"
+    when
+        $login : LoginEvent($ts: timestamp)
+    then
+        long currentTime = kcontext.getKieRuntime().getSessionClock().getCurrentTime();
+        long age = currentTime - $ts;
+
+        if (age < 10000) {
+            logCollector.add("✅ Event valid: " + age + "ms old");
+        } else {
+            logCollector.add("❌ Event expired: " + age + "ms old (should be auto-removed)");
+        }
+end
+
+rule "All Events Expired"
+    salience -10
+    when
+        not LoginEvent()
+    then
+        logCollector.add("🎉 SUCCESS: @expires(10s) worked! All events removed automatically");
+end
+
+rule "Debug Event Count"
+    when
+        $count : Number() from accumulate(LoginEvent(), count(1))
+    then
+        logCollector.add("🔢 Events in memory: " + $count);
+end

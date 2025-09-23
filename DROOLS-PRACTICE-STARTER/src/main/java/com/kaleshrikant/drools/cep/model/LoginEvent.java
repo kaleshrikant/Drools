@@ -1,7 +1,5 @@
 package com.kaleshrikant.drools.cep.model;
 
-import java.time.LocalDateTime;
-
 /**
  * @author Shrikant Kale
  * @Date 13 Sep 2025
