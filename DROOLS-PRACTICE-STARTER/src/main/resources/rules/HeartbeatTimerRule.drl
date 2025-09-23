@@ -1,0 +1,12 @@
+package rules;
+
+global java.util.List logCollector;
+
+// Timer rule → fires first after 5s, then every 5s
+rule "Heartbeat Timer"
+    timer(int: 5000 5000)
+when
+    // no condition, it just runs
+then
+    logCollector.add("❤️ Heartbeat at " + System.currentTimeMillis());
+end
