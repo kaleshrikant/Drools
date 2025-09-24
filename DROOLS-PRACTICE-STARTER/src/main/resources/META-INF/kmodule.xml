@@ -12,4 +12,10 @@
     <kbase name="event-temporal-kbase" packages="rules">
         <ksession name="event-temporal-ksession"/>
     </kbase>
+
+    <!-- NEW: Only for true DECISION-TABLES programs -->
+    <kbase name="decisionTableKBase" packages="rules" eventProcessingMode="stream">
+        <ksession name="decisionTable-session"/>
+    </kbase>
+
 </kmodule>
