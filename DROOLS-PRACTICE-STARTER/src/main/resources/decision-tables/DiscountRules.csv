@@ -1,0 +1,9 @@
+RuleSet,DiscountRules
+Import,com.kaleshrikant.drools.decision.Shopper
+
+RuleTable,ApplyDiscount
+
+NAME,CONDITION,CONDITION,ACTION
+GoldRule,Shopper(type == "GOLD"),Shopper(purchaseAmount > 5000),modify($s) { setDiscount(20); }
+SilverRule,Shopper(type == "SILVER"),Shopper(purchaseAmount > 3000),modify($s) { setDiscount(10); }
+BronzeRule,Shopper(type == "BRONZE"),Shopper(purchaseAmount > 2000),modify($s) { setDiscount(5); }

@@ -1,0 +1,24 @@
+package rules;
+
+import com.kaleshrikant.drools.decision.model.Shopper;
+
+rule "GoldRule"
+    when
+        $s : Shopper(type == "GOLD", purchaseAmount > 5000)
+    then
+        modify($s) { setDiscount(20); }
+end
+
+rule "SilverRule"
+    when
+        $s : Shopper(type == "SILVER", purchaseAmount > 3000)
+    then
+        modify($s) { setDiscount(10); }
+end
+
+rule "BronzeRule"
+    when
+        $s : Shopper(type == "BRONZE", purchaseAmount > 2000)
+    then
+        modify($s) { setDiscount(5); }
+end
