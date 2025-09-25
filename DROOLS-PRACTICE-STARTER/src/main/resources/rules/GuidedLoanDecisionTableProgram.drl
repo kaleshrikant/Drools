@@ -1,0 +1,34 @@
+package rules;
+
+import com.kaleshrikant.drools.decision.model.LoanClient;
+
+global java.util.List logCollector;
+
+
+declare Applicant
+    creditScore : int
+    income : int
+    debt : int
+    loanEligible : boolean
+end
+
+rule "HighCredit"
+    when
+        $a : Applicant(creditScore >= 700, income >= 60000, debt <= 15000)
+    then
+        modify($a) { setLoanEligible(true); }
+end
+
+rule "MediumCredit"
+    when
+        $a : Applicant(creditScore >= 650, income >= 50000, debt <= 10000)
+    then
+        modify($a) { setLoanEligible(true); }
+end
+
+rule "LowCredit"
+    when
+        $a : Applicant(creditScore >= 600, income >= 30000, debt <= 5000)
+    then
+        modify($a) { setLoanEligible(false); }
+end
