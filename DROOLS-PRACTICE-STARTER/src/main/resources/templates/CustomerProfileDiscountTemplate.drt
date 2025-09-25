@@ -1,0 +1,12 @@
+package rules;
+
+import com.kaleshrikant.drools.decision.model.CustomerProfile;
+
+
+    rule "@{RuleName}"
+        when
+            $c : CustomerProfile(type == "@{CustomerType}", purchaseAmount > @{MinPurchase})
+        then
+            $c.setDiscount(@{Discount});
+            logCollector.add("Applied @{Discount}% discount to @{CustomerType} customer " + $c.getName());
+    end

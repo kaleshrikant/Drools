@@ -1,0 +1,4 @@
+RuleName,CustomerType,MinPurchase,Discount
+VIPRule,VIP,5000,20
+RegularRule,REGULAR,2000,10
+NewCustomerRule,NEW,1000,5
