@@ -1,0 +1,27 @@
+package rules.global
+
+// 🌐 Global declaration
+global java.util.List logCollector;
+
+import com.kaleshrikant.drools.advanced.model.CustomerInfo;
+
+rule "Premium Customer"
+    when
+        $c : CustomerInfo(premiumMember == true)
+    then
+        logCollector.add("✅ Premium customer: " + $c.getName());
+end
+
+rule "Young Customer"
+    when
+        $c : CustomerInfo(age < 25)
+    then
+        logCollector.add("🟡 Young customer: " + $c.getName());
+end
+
+rule "Standard Customer"
+    when
+        $c : CustomerInfo(age >= 25 && premiumMember == false)
+    then
+        logCollector.add("🔵 Standard customer: " + $c.getName());
+end

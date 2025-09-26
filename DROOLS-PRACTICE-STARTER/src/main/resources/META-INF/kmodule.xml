@@ -18,4 +18,9 @@
         <ksession name="decisionTable-session"/>
     </kbase>
 
+    <!-- NEW: Only for Global Logging programs -->
+    <kbase name="globalLoggingKBase" packages="rules.global" eventProcessingMode="stream">
+        <ksession name="global-logging-session"/>
+    </kbase>
+
 </kmodule>
