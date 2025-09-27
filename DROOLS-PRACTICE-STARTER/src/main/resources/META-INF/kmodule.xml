@@ -23,4 +23,8 @@
         <ksession name="global-logging-session"/>
     </kbase>
 
+    <kbase name="advancedKBase" packages="rules.advanced" eventProcessingMode="stream">
+        <ksession name="double-age-session"/>
+    </kbase>
+
 </kmodule>

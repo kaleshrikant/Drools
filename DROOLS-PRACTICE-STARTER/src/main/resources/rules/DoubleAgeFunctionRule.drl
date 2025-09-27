@@ -1,0 +1,17 @@
+package rules.advanced;
+
+import com.kaleshrikant.drools.advanced.model.UserProfile;
+
+// 🔹 Function to double the age
+function int doubleAge(int age) {
+    return age * 2;
+}
+
+rule "Double Age of UserProfile"
+    when
+        $u : UserProfile()
+    then
+        int newAge = doubleAge($u.getAge());
+        $u.setAge(newAge);
+        System.out.println("🔹 Age doubled for " + $u.getName() + " → " + newAge);
+end
