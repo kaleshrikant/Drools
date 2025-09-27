@@ -36,4 +36,9 @@
     <kbase name="dslKBase" packages="rules">
         <ksession name="dslSession"/>
     </kbase>
+
+    <!-- NEW: Only for true advanced package programs -->
+    <kbase name="advancedBase" packages="com.kaleshrikant.drools.advanced">
+        <ksession name="advancedSession" type="stateful"/>
+    </kbase>
 </kmodule>

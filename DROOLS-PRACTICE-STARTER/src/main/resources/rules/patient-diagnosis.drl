@@ -1,0 +1,28 @@
+package com.kaleshrikant.drools.advanced;
+
+import com.kaleshrikant.drools.advanced.model.Patient;
+global java.util.List logCollector;
+
+rule "Flu Diagnosis"
+when
+    $p : Patient( temperature >= 38, hasCough == true )
+then
+    $p.setDiagnosis("Flu");
+    logCollector.add("🩺 Flu diagnosed for " + $p.getName());
+end
+
+rule "Cold Diagnosis"
+when
+    $p : Patient( temperature < 38, hasCough == true, hasFatigue == false )
+then
+    $p.setDiagnosis("Common Cold");
+    logCollector.add("❄️ Common Cold diagnosed for " + $p.getName());
+end
+
+rule "Healthy"
+when
+    $p : Patient( temperature < 38, hasCough == false )
+then
+    $p.setDiagnosis("Healthy");
+    logCollector.add("✅ " + $p.getName() + " is Healthy");
+end
