@@ -1,0 +1,29 @@
+package com.kaleshrikant.drools.session;
+
+import com.kaleshrikant.drools.sessions.model.Client;
+
+global java.util.List logCollector;
+
+rule "Adult Client - Kie-Stateless"
+    when
+        $c : Client(age >= 30 && age < 60)
+    then
+        $c.setCategory("Adult");
+        logCollector.add("🧑 Adult category assigned to " + $c.getName());
+end
+
+rule "Young Adult Client - Kie-Stateless"
+    when
+        $c : Client(age >= 18 && age < 30)
+    then
+        $c.setCategory("Young Adult");
+        logCollector.add("🧒 Young Adult category assigned to " + $c.getName());
+end
+
+rule "Senior Client - Kie-Stateless"
+    when
+        $c : Client(age >= 60)
+    then
+        $c.setCategory("Senior");
+        logCollector.add("👵 Senior category assigned to " + $c.getName());
+end
