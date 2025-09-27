@@ -32,4 +32,8 @@
         <ksession name="ksession-query"/>
     </kbase>
 
+    <!-- NEW: Only for true DSL programs -->
+    <kbase name="dslKBase" packages="rules">
+        <ksession name="dslSession"/>
+    </kbase>
 </kmodule>

@@ -1,0 +1,17 @@
+import com.kaleshrikant.drools.advanced.model.BuyerProfile;
+
+global java.util.List logCollector;
+
+rule "GOLD Buyer Discount"
+    when
+        When a buyer is GOLD member
+    then
+        Give GOLD discount
+end
+
+rule "SILVER Buyer Discount"
+    when
+        When a buyer is SILVER member
+    then
+        Give SILVER discount
+end
