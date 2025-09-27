@@ -1,0 +1,28 @@
+package com.kaleshrikant.drools.advanced;
+
+import com.kaleshrikant.drools.advanced.model.Product;
+global java.util.List logCollector;
+
+rule "Electronics Discount"
+when
+    $p : Product(category == "Electronics", applied == false)
+then
+    // mark as applied to prevent loop
+    $p.setApplied(true);
+
+    // insert logical discount
+    insertLogical(new Product($p.getName(), $p.getCategory(), 10, true));
+
+    logCollector.add("🟢 Electronics discount applied to " + $p.getName());
+end
+
+rule "Groceries Discount"
+when
+    $p : Product(category == "Groceries", applied == false)
+then
+    $p.setApplied(true);
+
+    insertLogical(new Product($p.getName(), $p.getCategory(), 5, true));
+
+    logCollector.add("🟢 Groceries discount applied to " + $p.getName());
+end
