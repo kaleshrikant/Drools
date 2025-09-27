@@ -1,0 +1,13 @@
+package rules;
+
+import com.kaleshrikant.drools.core.model.Person;
+
+global java.util.List logCollector;
+
+/**
+ * 📘 Query to fetch all adults
+ */
+
+query "all adults"
+    $adult : Person(age >= 18)
+end

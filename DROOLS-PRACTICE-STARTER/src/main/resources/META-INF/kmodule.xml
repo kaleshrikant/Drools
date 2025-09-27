@@ -27,4 +27,9 @@
         <ksession name="double-age-session"/>
     </kbase>
 
+    <!-- NEW: Only for true Query programs -->
+    <kbase name="rulesquery" packages="rules">
+        <ksession name="ksession-query"/>
+    </kbase>
+
 </kmodule>

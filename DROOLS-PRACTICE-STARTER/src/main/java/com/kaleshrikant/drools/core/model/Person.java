@@ -1,6 +1,9 @@
 package com.kaleshrikant.drools.core.model;
 
 /**
+ * 🧾 Person Fact
+ * Represents a person with name and age.
+ *
  * @author Shrikant Kale
  * @Date 9/11/25
  */
