@@ -46,4 +46,9 @@
     <kbase name="sessionBase" packages="com.kaleshrikant.drools.session">
         <ksession name="sessionKSession" type="stateful"/>
     </kbase>
+
+    <!-- NEW: Only for true session package programs -->
+    <kbase name="statelessKBase" packages="com.kaleshrikant.drools.session">
+        <ksession name="statelessKSession" type="stateless"/>
+    </kbase>
 </kmodule>
