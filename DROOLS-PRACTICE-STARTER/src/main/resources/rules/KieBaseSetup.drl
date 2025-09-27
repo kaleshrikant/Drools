@@ -1,0 +1,21 @@
+package com.kaleshrikant.drools.sessions;
+
+import com.kaleshrikant.drools.sessions.model.Item;
+
+global java.util.List logCollector;
+
+rule "Electronics Discount"
+when
+    $i : Item(category == "Electronics")
+then
+    $i.setPrice($i.getPrice() * 0.9);
+    logCollector.add("💻 Electronics discount applied to " + $i.getName());
+end
+
+rule "Groceries Discount"
+when
+    $i : Item(category == "Groceries")
+then
+    $i.setPrice($i.getPrice() * 0.9);
+    logCollector.add("🍎 Groceries discount applied to " + $i.getName());
+end

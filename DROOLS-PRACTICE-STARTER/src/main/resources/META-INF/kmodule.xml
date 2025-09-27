@@ -51,4 +51,9 @@
     <kbase name="statelessKBase" packages="com.kaleshrikant.drools.session">
         <ksession name="statelessKSession" type="stateless"/>
     </kbase>
+
+    <!-- KieBase for Discount Rules -->
+    <kbase name="discountKBase" packages="com.kaleshrikant.drools.sessions">
+        <ksession name="discountKSession" type="stateful"/>
+    </kbase>
 </kmodule>
