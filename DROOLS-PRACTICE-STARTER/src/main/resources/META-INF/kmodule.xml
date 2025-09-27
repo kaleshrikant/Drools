@@ -41,4 +41,9 @@
     <kbase name="advancedBase" packages="com.kaleshrikant.drools.advanced">
         <ksession name="advancedSession" type="stateful"/>
     </kbase>
+
+    <!-- NEW: Only for true session package programs -->
+    <kbase name="sessionBase" packages="com.kaleshrikant.drools.session">
+        <ksession name="sessionKSession" type="stateful"/>
+    </kbase>
 </kmodule>
