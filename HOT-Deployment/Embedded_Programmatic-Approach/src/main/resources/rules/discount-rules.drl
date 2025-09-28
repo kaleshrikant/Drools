@@ -1,0 +1,58 @@
+package rules
+
+import com.kaleshrikant.drools.model.Customer
+import com.kaleshrikant.drools.model.Order
+
+rule "VIP Customer Discount"
+when
+    $customer: Customer(customerType == "VIP")
+    $order: Order(customerId == $customer.id, discountPercentage <= 0)  // Changed from == 0 to <= 0
+then
+    $order.setDiscountPercentage(20);
+    $order.setDiscountReason("VIP Customer gets 20% discount");
+    $order.addAppliedRule("VIP Customer Discount");
+    System.out.println("🎯 Applied: VIP Customer Discount - 20%");
+    update($order);
+end
+
+rule "Bulk Order Discount"
+when
+    $order: Order(totalAmount > 1000, discountPercentage <= 0)  // Changed condition
+then
+    $order.setDiscountPercentage(15);
+    $order.setDiscountReason("Bulk order over $1000 gets 15% discount");
+    $order.addAppliedRule("Bulk Order Discount");
+    System.out.println("🎯 Applied: Bulk Order Discount - 15%");
+    update($order);
+end
+
+rule "Loyalty Discount"
+when
+    $customer: Customer(yearsWithCompany >= 5)
+    $order: Order(customerId == $customer.id, discountPercentage < 10)
+then
+    int newDiscount = Math.max($order.getDiscountPercentage(), 10);
+    $order.setDiscountPercentage(newDiscount);
+    if ($order.getDiscountReason() != null) {
+        $order.setDiscountReason($order.getDiscountReason() + " + 5-year loyalty bonus");
+    } else {
+        $order.setDiscountReason("5-year loyalty bonus - 10% minimum discount");
+    }
+    $order.addAppliedRule("Loyalty Discount");
+    System.out.println("🎯 Applied: Loyalty Discount - minimum 10%");
+    update($order);
+end
+
+rule "Debug Rule - Show All Orders"
+when
+    $order: Order()
+then
+    System.out.println("🔍 DEBUG: Found order - " + $order);
+end
+
+rule "Debug Rule - Show All Customers"
+when
+    $customer: Customer()
+then
+    System.out.println("🔍 DEBUG: Found customer - " + $customer);
+end
