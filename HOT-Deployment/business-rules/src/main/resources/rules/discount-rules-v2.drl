@@ -1,0 +1,59 @@
+package rules;
+
+import com.kaleshrikant.drools.model.Customer;
+import com.kaleshrikant.drools.model.Order;
+
+rule "Enhanced Welcome Discount - New Customers"
+when
+    $customer: Customer(level == "NEW")
+    $order: Order(amount > 50)  // Lowered threshold from 100 to 50
+then
+    $order.addDiscount(0.08, "Enhanced Welcome Discount");  // Increased from 5% to 8%
+    System.out.println("v2.0.0: Applied 8% welcome discount for new customer");
+end
+
+rule "Enhanced Silver Customer Discount"
+when
+    $customer: Customer(level == "SILVER")
+    $order: Order(amount > 300)  // Lowered threshold from 500 to 300
+then
+    $order.addDiscount(0.12, "Enhanced Silver Discount");  // Increased from 10% to 12%
+    System.out.println("v2.0.0: Applied 12% discount for Silver customer");
+end
+
+rule "Enhanced Gold Customer Discount"
+when
+    $customer: Customer(level == "GOLD")
+    $order: Order(amount > 800)  // Lowered threshold from 1000 to 800
+then
+    $order.addDiscount(0.20, "Enhanced Gold Discount");  // Increased from 15% to 20%
+    System.out.println("v2.0.0: Applied 20% discount for Gold customer");
+end
+
+// NEW RULE in v2.0.0
+rule "Platinum Customer Exclusive"
+when
+    $customer: Customer(level == "PLATINUM")
+    $order: Order(amount > 1000)
+then
+    $order.addDiscount(0.25, "Platinum Exclusive Discount");
+    System.out.println("v2.0.0: Applied 25% exclusive discount for Platinum customer");
+end
+
+// NEW RULE in v2.0.0
+rule "VIP Special Treatment"
+when
+    $customer: Customer(vip == true)
+    $order: Order(amount > 500)
+then
+    $order.addDiscount(0.05, "VIP Special Treatment");
+    System.out.println("v2.0.0: Applied 5% VIP special treatment");
+end
+
+rule "High Value Order Bonus"
+when
+    $order: Order(amount > 1500)  // Lowered threshold from 2000 to 1500
+then
+    $order.addDiscount(0.07, "Enhanced High Value Bonus");  // Increased from 5% to 7%
+    System.out.println("v2.0.0: Applied 7% enhanced high value bonus");
+end
