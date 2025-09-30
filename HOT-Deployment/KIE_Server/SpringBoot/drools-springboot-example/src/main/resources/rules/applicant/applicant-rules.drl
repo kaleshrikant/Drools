@@ -1,0 +1,48 @@
+package rules.applicant
+
+import com.kaleshrikant.drools.model.Applicant
+
+rule "Junior Applicant"
+    when
+        $a: Applicant(age < 25, yearsOfExperience < 2)
+    then
+        $a.setStatus("REJECTED");
+        $a.setMessage("Too young and insufficient experience");
+        System.out.println("[Applicant Package] " + $a.getName() + " rejected: Too young and insufficient experience");
+end
+
+rule "Experienced Professional"
+    when
+        $a: Applicant(yearsOfExperience >= 5, expectedSalary <= currentSalary * 1.3)
+    then
+        $a.setStatus("APPROVED");
+        $a.setMessage("Experienced professional with reasonable salary expectations");
+        System.out.println("[Applicant Package] " + $a.getName() + " approved: Experienced professional");
+end
+
+rule "Unrealistic Salary Expectations"
+    when
+        $a: Applicant(expectedSalary > currentSalary * 1.5)
+    then
+        $a.setStatus("REJECTED");
+        $a.setMessage("Salary expectations too high");
+        System.out.println("[Applicant Package] " + $a.getName() + " rejected: Unrealistic salary expectations");
+end
+
+rule "Moderate Experience Candidate"
+    when
+        $a: Applicant(age >= 25, yearsOfExperience >= 2, yearsOfExperience < 5, expectedSalary <= currentSalary * 1.4)
+    then
+        $a.setStatus("APPROVED");
+        $a.setMessage("Candidate with moderate experience and reasonable expectations");
+        System.out.println("[Applicant Package] " + $a.getName() + " approved: Moderate experience");
+end
+
+rule "Under Consideration"
+    when
+        $a: Applicant(status == null)
+    then
+        $a.setStatus("UNDER_REVIEW");
+        $a.setMessage("Application under review by HR");
+        System.out.println("[Applicant Package] " + $a.getName() + " status: Under review");
+end

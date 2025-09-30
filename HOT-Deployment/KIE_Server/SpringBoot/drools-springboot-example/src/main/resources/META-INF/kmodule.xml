@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kmodule xmlns="http://www.drools.org/xsd/kmodule" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <!-- Default KieBase that includes all packages -->
+    <kbase name="defaultKBase" packages="rules.applicant,rules.loan" default="true">
+        <ksession name="defaultSession" type="stateful" default="true"/>
+    </kbase>
+
+    <!-- Applicant-specific KieBase -->
+    <kbase name="applicantKBase" packages="rules.applicant">
+        <ksession name="applicantSession" type="stateful"/>
+    </kbase>
+
+    <!-- Loan-specific KieBase -->
+    <kbase name="loanKBase" packages="rules.loan">
+        <ksession name="loanSession" type="stateful"/>
+    </kbase>
+
+</kmodule>

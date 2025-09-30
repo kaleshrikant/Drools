@@ -1,0 +1,18 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: drools-package-example
+  main:
+    banner-mode: off
+
+# Logging Configuration
+logging:
+  level:
+    root: INFO
+    com.kaleshrikant.drools: DEBUG
+    org.kie: INFO
+    org.drools: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
