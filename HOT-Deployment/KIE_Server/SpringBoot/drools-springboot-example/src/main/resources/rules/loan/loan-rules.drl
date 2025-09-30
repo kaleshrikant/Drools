@@ -1,0 +1,56 @@
+package rules.loan
+
+import com.kaleshrikant.drools.model.LoanApplication
+
+rule "Excellent Credit Score"
+    when
+        $loan: LoanApplication(creditScore >= 750, amount <= annualIncome * 0.8)
+    then
+        $loan.setApproved(true);
+        $loan.setInterestRate(5.5);
+        System.out.println("[Loan Package] Loan approved for " + $loan.getApplicantName() + " with excellent rate 5.5%");
+end
+
+rule "Good Credit Score"
+    when
+        $loan: LoanApplication(creditScore >= 700, creditScore < 750, amount <= annualIncome * 0.6)
+    then
+        $loan.setApproved(true);
+        $loan.setInterestRate(7.2);
+        System.out.println("[Loan Package] Loan approved for " + $loan.getApplicantName() + " with good rate 7.2%");
+end
+
+rule "Fair Credit Score"
+    when
+        $loan: LoanApplication(creditScore >= 650, creditScore < 700, amount <= annualIncome * 0.4)
+    then
+        $loan.setApproved(true);
+        $loan.setInterestRate(9.8);
+        System.out.println("[Loan Package] Loan approved for " + $loan.getApplicantName() + " with fair rate 9.8%");
+end
+
+rule "Low Credit Score"
+    when
+        $loan: LoanApplication(creditScore < 650)
+    then
+        $loan.setApproved(false);
+        $loan.setRejectionReason("Credit score too low");
+        System.out.println("[Loan Package] Loan rejected for " + $loan.getApplicantName() + ": Low credit score");
+end
+
+rule "Loan Amount Too High"
+    when
+        $loan: LoanApplication(amount > annualIncome)
+    then
+        $loan.setApproved(false);
+        $loan.setRejectionReason("Loan amount exceeds annual income");
+        System.out.println("[Loan Package] Loan rejected for " + $loan.getApplicantName() + ": Amount too high");
+end
+
+rule "Default Rejection"
+    when
+        $loan: LoanApplication(approved == false, rejectionReason == null)
+    then
+        $loan.setRejectionReason("Does not meet lending criteria");
+        System.out.println("[Loan Package] Loan rejected for " + $loan.getApplicantName() + ": Default criteria");
+end
