@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: kie-server-standalone
+
+server:
+  port: 9080
+
+logging:
+  level:
+    com.kaleshrikant: INFO
+    org.drools: INFO
+    org.kie: INFO

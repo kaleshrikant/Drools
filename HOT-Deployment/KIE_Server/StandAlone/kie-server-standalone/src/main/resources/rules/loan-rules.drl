@@ -1,0 +1,12 @@
+package rules
+
+import com.kaleshrikant.drools.model.LoanApplication
+
+rule "Simple Loan Rule"
+    when
+        $loan: LoanApplication()
+    then
+        System.out.println("=== DROOLS 8.x: Loan rule fired for: " + $loan.getApplicantName() + " ===");
+        $loan.setApproved(true);
+        $loan.setInterestRate(5.0);
+end

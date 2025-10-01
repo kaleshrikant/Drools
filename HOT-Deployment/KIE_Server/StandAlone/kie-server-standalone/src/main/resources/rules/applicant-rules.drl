@@ -1,0 +1,12 @@
+package rules
+
+import com.kaleshrikant.drools.model.Applicant
+
+rule "Simple Applicant Rule"
+    when
+        $a: Applicant()
+    then
+        System.out.println("=== DROOLS 8.x: Applicant rule fired for: " + $a.getName() + " ===");
+        $a.setEligible(true);
+        $a.setValidationMessage("Processed by Drools 8.x");
+end
