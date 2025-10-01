@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/rules")
 public class RuleEngineController {
-
 	private final RuleEngineService ruleEngineService;
 
 	@Autowired
@@ -31,41 +30,40 @@ public class RuleEngineController {
 		return ruleEngineService.evaluateLoanApplication(loanApplication);
 	}
 
-	@PostMapping("/evaluate-applicant-all")
-	public Applicant evaluateApplicantWithAllRules(@RequestBody Applicant applicant) {
-		return ruleEngineService.evaluateApplicant(applicant); // Using same method for now
-	}
-
 	@GetMapping("/packages")
 	public String getPackages() {
 		return """
-				Rules organized by packages:
-				- rules.applicant: Applicant evaluation rules
-				- rules.loan: Loan application rules
-				- Use /evaluate-applicant for applicant rules only
-				- Use /evaluate-loan for loan rules only  
-				- Use /evaluate-applicant-all for all rules combined
-				""";
+               Rules organized by packages:
+               - rules.applicant: Applicant evaluation rules
+               - rules.loan: Loan application rules
+               - Use /evaluate-applicant for applicant rules
+               - Use /evaluate-loan for loan rules
+               """;
 	}
 
 	@GetMapping("/health")
 	public String health() {
-		return "Drools Rule Engine with Package-Level Organization is running!";
+		return "Drools Rule Engine with HOT Deployment is running!";
 	}
 
 	@GetMapping("/info")
 	public String info() {
 		return """
-				Package-Level Rule Organization Demo
-				===================================
-				This application demonstrates organizing Drools rules 
-				into separate packages for better maintainability.
-				
-				Packages:
-				- rules.applicant: Contains 5 rules for applicant evaluation
-				- rules.loan: Contains 6 rules for loan application processing
-				
-				Each package is loaded in its own KIE Base and Session.
-				""";
+               HOT Deployment Rule Engine
+               =========================
+               Features:
+               🔥 Dynamic Rule Reloading
+               📁 External Rule Directory: hot-deployment/
+               ⏰ Auto-monitoring every 5s
+               🔄 Manual reload via API
+               
+               Packages:
+               - rules.applicant: Applicant evaluation
+               - rules.loan: Loan processing
+               
+               HOT Deployment Endpoints:
+               - GET  /api/hot-deployment/status
+               - POST /api/hot-deployment/reload
+               """;
 	}
 }
