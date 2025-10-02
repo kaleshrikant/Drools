@@ -1,0 +1,74 @@
+package rules.core.grade;
+
+import com.kaleshrikant.core.grade.model.Student;
+import com.kaleshrikant.core.grade.model.ScholarshipPolicy;
+
+// 🌐 GLOBAL VARIABLES
+global java.util.List logCollector;
+
+/**
+ * 📜 Student Grade Assignment and Evaluation Rules - Business Logic Implementation
+ *
+ * 🎯 Purpose: Assign grades based on student marks
+ * 🧊 Facts: Student object with name and marks
+ * ➕ Conditions: Marks thresholds for grade classification
+ * 🔥 Actions: Log grade and update status
+ */
+
+rule "Grade A Assignment"
+    when
+        $student : Student(marks >= 90)
+    then
+        logCollector.add("🏅 " + $student.getName() + " scored Grade A");
+        $student.setGrade("A");
+end
+
+rule "Grade B Assignment"
+    when
+        $student : Student(marks >= 75 && marks < 90)
+    then
+        logCollector.add("🥈 " + $student.getName() + " scored Grade B");
+        $student.setGrade("B");
+end
+
+rule "Grade C Assignment"
+    when
+        $student : Student(marks >= 60 && marks < 75)
+    then
+        logCollector.add("🥉 " + $student.getName() + " scored Grade C");
+        $student.setGrade("C");
+end
+
+rule "Grade D Assignment"
+    when
+        $student : Student(marks >= 40 && marks < 60)
+    then
+        logCollector.add("📘 " + $student.getName() + " scored Grade D");
+        $student.setGrade("D");
+end
+
+rule "Grade F Assignment"
+    when
+        $student : Student(marks < 40)
+    then
+        logCollector.add("❌ " + $student.getName() + " scored Grade F");
+        $student.setGrade("F");
+end
+
+/**
+ * 📜 Extended Business Logic - Scholarship Eligibility
+ *
+ * 🎯 Purpose: Identify students eligible for scholarship
+ * 🧊 Facts: Student and ScholarshipPolicy
+ * ➕ Conditions: Grade A and policy match
+ * 🔥 Actions: Log eligibility and update status
+ */
+
+rule "Scholarship Eligibility Evaluation"
+    when
+        $student : Student(grade == "A")
+        $policy : ScholarshipPolicy(minGrade == "A")
+    then
+        logCollector.add("🎓 " + $student.getName() + " is eligible for scholarship.");
+        $student.setStatus("SCHOLARSHIP_ELIGIBLE");
+end
