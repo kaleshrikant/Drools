@@ -1,0 +1,86 @@
+package rules.patterns.loan;
+
+import com.kaleshrikant.patterns.loan.model.Customer;
+import com.kaleshrikant.patterns.loan.model.Account;
+import com.kaleshrikant.patterns.loan.model.Transaction;
+import com.kaleshrikant.patterns.loan.model.Application;
+
+// 🌐 GLOBAL VARIABLES
+global java.util.List logCollector;
+
+// 🧮 FUNCTIONS for reusable calculations
+function boolean isEligible(int score, double income) {
+    return score > 650 && income > 50000;
+}
+
+function double calculateRiskScore(int age, double income, int creditScore) {
+    double risk = (age * 0.1) + (income * 0.0001) - (creditScore * 0.01);
+    return Math.max(0, Math.min(100, risk));
+}
+
+/**
+ * 📜 Comprehensive Loan Eligibility Assessment Rules - Advanced Pattern Implementation
+ *
+ * 🎯 Purpose: Evaluate customer eligibility and risk
+ * 🔍 Patterns: Multi-object matching with fraud exclusion
+ * 🧮 Functions: Risk score calculation
+ */
+
+rule "Advanced Pattern - Comprehensive Loan Eligibility Assessment Rules"
+    when
+        $customer : Customer(status == "ACTIVE")
+        exists(Account(customerId == $customer.id, balance > 1000))
+        not(Transaction(customerId == $customer.id, type == "FRAUD"))
+    then
+        logCollector.add("🔍 Complex pattern matched for: " + $customer.getName());
+
+        double risk = calculateRiskScore($customer.getAge(), $customer.getIncome(), $customer.getCreditScore());
+        logCollector.add("📊 Risk score calculated: " + risk);
+
+        if (isEligible($customer.getCreditScore(), $customer.getIncome())) {
+            $customer.setStatus("ELIGIBLE");
+            logCollector.add("✅ " + $customer.getName() + " is eligible for loan.");
+        } else {
+            $customer.setStatus("REJECTED");
+            logCollector.add("❌ " + $customer.getName() + " is not eligible for loan.");
+        }
+end
+
+/**
+ * 📜 Accumulate Pattern Example
+ *
+ * 🎯 Purpose: Detect high-value customers
+ * ➕ Accumulate: Sum of transaction amounts
+ */
+
+rule "Data Aggregation - Comprehensive Loan Eligibility Assessment Rules"
+    when
+        $customer : Customer()
+        $totalTransactions : Double() from accumulate(
+            Transaction(customerId == $customer.id, $amount : amount),
+            sum($amount)
+        )
+        eval($totalTransactions > 10000)
+    then
+        logCollector.add("💰 High-value customer detected: " + $customer.getName());
+        logCollector.add("📈 Total transaction amount: " + $totalTransactions);
+end
+
+/**
+ * 📜 Conditional Logic Pattern
+ *
+ * 🎯 Purpose: Evaluate multi-constraint domain object
+ * 🔍 Patterns: In-list, numeric, and regex constraints
+ */
+
+rule "Complex Conditions - Comprehensive Loan Eligibility Assessment Rules"
+    when
+        $customer : Customer(
+            status in ("ACTIVE", "PENDING"),
+            income >= 50000,
+            name matches "^[A-Z].*"
+        )
+    then
+        logCollector.add("🧠 Complex conditions satisfied for: " + $customer.getId());
+        $customer.setStatus("VALIDATED");
+end
