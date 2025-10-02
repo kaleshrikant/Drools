@@ -1,0 +1,66 @@
+package rules.core.age;
+
+import com.kaleshrikant.core.age.model.Family;
+import com.kaleshrikant.core.hello.model.Person;
+
+// 🌐 GLOBAL VARIABLES
+global java.util.List logCollector;
+
+/**
+ * 📜 Age Classification and Life Stage Rules - Business Logic Implementation
+ *
+ * 🎯 Purpose: Categorize individuals into life stages based on age
+ * 🧊 Facts: Person object with age and name
+ * ➕ Conditions: Age-based classification
+ * 🔥 Actions: Log life stage and update status
+ */
+
+rule "Age Classification and Life Stage Rules"
+    when
+        $person : Person(age < 13)
+    then
+        logCollector.add("🧒 " + $person.getName() + " is classified as a Child.");
+        $person.setStatus("CHILD");
+end
+
+rule "Teenager Classification"
+    when
+        $person : Person(age >= 13 && age < 18)
+    then
+        logCollector.add("🧑 " + $person.getName() + " is classified as a Teenager.");
+        $person.setStatus("TEENAGER");
+end
+
+rule "Adult Classification"
+    when
+        $person : Person(age >= 18 && age < 60)
+    then
+        logCollector.add("👨 " + $person.getName() + " is classified as an Adult.");
+        $person.setStatus("ADULT");
+end
+
+rule "Senior Classification"
+    when
+        $person : Person(age >= 60)
+    then
+        logCollector.add("👴 " + $person.getName() + " is classified as a Senior.");
+        $person.setStatus("SENIOR");
+end
+
+/**
+ * 📜 Extended Business Logic - Relationship Evaluation
+ *
+ * 🎯 Purpose: Evaluate relationships between domain objects
+ * 🧊 Facts: Person and Family objects
+ * ➕ Conditions: Family linked to Person
+ * 🔥 Actions: Log relationship and update status
+ */
+
+rule "Family Relationship Evaluation"
+    when
+        $person : Person()
+        $family : Family(member == $person)
+    then
+        logCollector.add("🏠 " + $person.getName() + " is part of family: " + $family.getFamilyName());
+        $family.setStatus("EVALUATED");
+end

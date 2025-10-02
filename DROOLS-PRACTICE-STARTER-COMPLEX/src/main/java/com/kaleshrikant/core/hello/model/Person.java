@@ -8,6 +8,9 @@ package com.kaleshrikant.core.hello.model;
 public class Person {
 	private String name;
 	private Integer age;
+	private String status;
+
+	public Person() {}
 
 	public Person(String name, Integer age) {
 		this.name = name;
@@ -30,8 +33,16 @@ public class Person {
 		this.age = age;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	@Override
 	public String toString() {
-		return "Person{" + "name='" + name + '\'' + ", age=" + age + '}';
+		return "Person{" + "name='" + name + '\'' + ", age=" + age + ", status='" + status + '\'' + '}';
 	}
 }
