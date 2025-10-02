@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kmodule xmlns="http://www.drools.org/xsd/kmodule">
+    <!-- 🟦 Core Rules - Separate sessions -->
+    <kbase name="coreHelloRules" packages="rules.core.hello">
+        <ksession name="coreHelloSession"/>
+    </kbase>
+    <kbase name="coreAgeRules" packages="rules.core.age">
+        <ksession name="coreAgeSession"/>
+    </kbase>
+    <kbase name="coreGradeRules" packages="rules.core.grade">
+        <ksession name="coreGradeSession"/>
+    </kbase>
+    <kbase name="coreDiscountRules" packages="rules.core.discount">
+        <ksession name="coreDiscountSession"/>
+    </kbase>
+    <kbase name="coreTemperatureRules" packages="rules.core.temperature">
+        <ksession name="coreTemperatureSession"/>
+    </kbase>
+    
+    <!-- 🟪 Pattern Rules - Separate sessions -->
+    <kbase name="patternLoanRules" packages="rules.patterns.loan">
+        <ksession name="patternLoanSession"/>
+    </kbase>
+    <kbase name="patternFraudRules" packages="rules.patterns.fraud">
+        <ksession name="patternFraudSession"/>
+    </kbase>
+    <kbase name="patternRecommendationRules" packages="rules.patterns.recommendation">
+        <ksession name="patternRecommendationSession"/>
+    </kbase>
+    <kbase name="patternTaxRules" packages="rules.patterns.tax">
+        <ksession name="patternTaxSession"/>
+    </kbase>
+    <kbase name="patternCustomerRules" packages="rules.patterns.customer">
+        <ksession name="patternCustomerSession"/>
+    </kbase>
+    
+    <!-- 🟧 Control Rules - Separate sessions -->
+    <kbase name="controlInventoryRules" packages="rules.control.inventory">
+        <ksession name="controlInventorySession"/>
+    </kbase>
+    <kbase name="controlOrderRules" packages="rules.control.order">
+        <ksession name="controlOrderSession"/>
+    </kbase>
+    <kbase name="controlInsuranceRules" packages="rules.control.insurance">
+        <ksession name="controlInsuranceSession"/>
+    </kbase>
+    <kbase name="controlWorkflowRules" packages="rules.control.workflow">
+        <ksession name="controlWorkflowSession"/>
+    </kbase>
+    <kbase name="controlComplianceRules" packages="rules.control.compliance">
+        <ksession name="controlComplianceSession"/>
+    </kbase>
+    
+    <!-- 🟩 CEP Rules - Separate sessions -->
+    <kbase name="cepFraudRules" packages="rules.cep.fraud" eventProcessingMode="stream">
+        <ksession name="cepFraudSession" type="stateful" clockType="realtime"/>
+    </kbase>
+    <kbase name="cepPricingRules" packages="rules.cep.pricing" eventProcessingMode="stream">
+        <ksession name="cepPricingSession" type="stateful" clockType="realtime"/>
+    </kbase>
+    <kbase name="cepTradingRules" packages="rules.cep.trading" eventProcessingMode="stream">
+        <ksession name="cepTradingSession" type="stateful" clockType="realtime"/>
+    </kbase>
+    <kbase name="cepHomeRules" packages="rules.cep.home" eventProcessingMode="stream">
+        <ksession name="cepHomeSession" type="stateful" clockType="realtime"/>
+    </kbase>
+    <kbase name="cepSupplyRules" packages="rules.cep.supply" eventProcessingMode="stream">
+        <ksession name="cepSupplySession" type="stateful" clockType="realtime"/>
+    </kbase>
+    
+    <!-- 🟨 Decision Rules - Separate sessions -->
+    <kbase name="decisionRiskRules" packages="rules.decision.risk">
+        <ksession name="decisionRiskSession"/>
+    </kbase>
+    <kbase name="decisionScholarshipRules" packages="rules.decision.scholarship">
+        <ksession name="decisionScholarshipSession"/>
+    </kbase>
+    <kbase name="decisionPayrollRules" packages="rules.decision.payroll">
+        <ksession name="decisionPayrollSession"/>
+    </kbase>
+    <kbase name="decisionHotelRules" packages="rules.decision.hotel">
+        <ksession name="decisionHotelSession"/>
+    </kbase>
+    
+    <!-- 🟫 Advanced Rules - Separate sessions -->
+    <kbase name="advancedMedicalRules" packages="rules.advanced.medical">
+        <ksession name="advancedMedicalSession"/>
+    </kbase>
+    
+    <!-- 🎖️ Capstone Rules - Separate sessions -->
+    <kbase name="capstoneEcommerceRules" packages="rules.capstone.ecommerce">
+        <ksession name="capstoneEcommerceSession"/>
+    </kbase>
+    <kbase name="capstoneFinancialRules" packages="rules.capstone.financial">
+        <ksession name="capstoneFinancialSession"/>
+    </kbase>
+    <kbase name="capstoneTrafficRules" packages="rules.capstone.traffic">
+        <ksession name="capstoneTrafficSession"/>
+    </kbase>
+    <kbase name="capstonePlatformRules" packages="rules.capstone.platform">
+        <ksession name="capstonePlatformSession"/>
+    </kbase>
+    <kbase name="capstoneMLRules" packages="rules.capstone.ml">
+        <ksession name="capstoneMLSession"/>
+    </kbase>
+</kmodule>
