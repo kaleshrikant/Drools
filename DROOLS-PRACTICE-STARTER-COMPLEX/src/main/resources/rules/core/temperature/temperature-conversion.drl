@@ -1,0 +1,51 @@
+package rules.core.temperature;
+
+import com.kaleshrikant.core.temperature.model.TemperatureReading;
+import com.kaleshrikant.core.temperature.model.SensorReading;
+
+// 🌐 GLOBAL VARIABLES
+global java.util.List logCollector;
+
+/**
+ * 📜 Temperature Monitoring and Conversion Rules - Business Logic Implementation
+ *
+ * 🎯 Purpose: Detect temperature thresholds and convert Celsius to Fahrenheit
+ * 🧊 Facts: TemperatureReading object with value and unit
+ * ➕ Conditions: Thresholds and unit checks
+ * 🔥 Actions: Log alerts and perform conversions
+ */
+
+rule "High Temperature Alert"
+    when
+        $reading : TemperatureReading(unit == "C", value > 40)
+    then
+        logCollector.add("🔥 High temperature detected: " + $reading.getValue() + "°C");
+        $reading.setStatus("ALERT");
+end
+
+rule "Convert Celsius to Fahrenheit"
+    when
+        $reading : TemperatureReading(unit == "C")
+    then
+        double fahrenheit = ($reading.getValue() * 9/5) + 32;
+        logCollector.add("🌡️ Converted " + $reading.getValue() + "°C to " + fahrenheit + "°F");
+        $reading.setConverted(fahrenheit);
+end
+
+/**
+ * 📜 Extended Business Logic - Dual Sensor Validation
+ *
+ * 🎯 Purpose: Validate readings from two sensors
+ * 🧊 Facts: SensorReading and TemperatureReading
+ * ➕ Conditions: Matching timestamps and deviation check
+ * 🔥 Actions: Log validation result
+ */
+
+rule "Sensor Reading Validation"
+    when
+        $sensor : SensorReading()
+        $temp : TemperatureReading(timestamp == $sensor.timestamp, Math.abs(value - $sensor.value) < 2)
+    then
+        logCollector.add("✅ Sensor and temperature readings validated at " + $sensor.getTimestamp());
+        $temp.setStatus("VALIDATED");
+end
