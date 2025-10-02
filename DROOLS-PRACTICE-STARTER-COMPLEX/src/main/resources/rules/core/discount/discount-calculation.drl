@@ -1,0 +1,62 @@
+package rules.core.discount;
+
+import com.kaleshrikant.core.discount.model.Customer;
+import com.kaleshrikant.core.discount.model.Campaign;
+
+// 🌐 GLOBAL VARIABLES
+global java.util.List logCollector;
+
+/**
+ * 📜 Dynamic Discount Calculation Rules - Business Logic Implementation
+ *
+ * 🎯 Purpose: Apply discount based on customer type and purchase amount
+ * 🧊 Facts: Customer object with type and purchaseAmount
+ * ➕ Conditions: Tiered discount logic
+ * 🔥 Actions: Log discount and update status
+ */
+
+rule "Premium Customer Discount"
+    when
+        $customer : Customer(type == "PREMIUM", purchaseAmount >= 1000)
+    then
+        logCollector.add("💎 " + $customer.getName() + " gets 20% discount.");
+        $customer.setDiscount(0.20);
+        $customer.setStatus("DISCOUNT_APPLIED");
+end
+
+rule "Regular Customer Discount"
+    when
+        $customer : Customer(type == "REGULAR", purchaseAmount >= 500)
+    then
+        logCollector.add("🛍️ " + $customer.getName() + " gets 10% discount.");
+        $customer.setDiscount(0.10);
+        $customer.setStatus("DISCOUNT_APPLIED");
+end
+
+rule "No Discount Applied"
+    when
+        $customer : Customer(purchaseAmount < 500)
+    then
+        logCollector.add("🚫 " + $customer.getName() + " is not eligible for discount.");
+        $customer.setDiscount(0.0);
+        $customer.setStatus("NO_DISCOUNT");
+end
+
+/**
+ * 📜 Extended Business Logic - Loyalty and Seasonal Bonus
+ *
+ * 🎯 Purpose: Apply bonus discount for loyal customers during festive season
+ * 🧊 Facts: Customer and Campaign objects
+ * ➕ Conditions: Loyalty status and active campaign
+ * 🔥 Actions: Log bonus and update discount
+ */
+
+rule "Loyalty Bonus During Campaign"
+    when
+        $customer : Customer(loyaltyPoints > 100)
+        $campaign : Campaign(active == true, name == "DIWALI-2025")
+    then
+        logCollector.add("🎁 " + $customer.getName() + " gets additional 5% festive bonus.");
+        $customer.setDiscount($customer.getDiscount() + 0.05);
+        $customer.setStatus("BONUS_APPLIED");
+end
