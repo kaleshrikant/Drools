@@ -1,0 +1,40 @@
+package rules.core.hello;
+
+import com.kaleshrikant.core.hello.model.Person;
+
+// 🌐 GLOBAL VARIABLES
+global java.util.List logCollector;
+
+/**
+ * 📜 Hello World Rule - First Drools Rule Experience
+ *
+ * 🎯 Purpose: Demonstrate basic rule structure and execution
+ * 🧊 Facts: Any object in working memory triggers this rule
+ * ➕ Conditions: Always true (no specific conditions)
+ * 🔥 Actions: Logs welcome message to demonstrate rule firing
+ */
+rule "Hello Drools World"
+    when
+
+    then
+        // 🔔 Log welcome message
+        logCollector.add("🎉 Welcome to Drools Rule Engine!");
+        logCollector.add("✅ Your first rule is working perfectly!");
+end
+
+/**
+ * 📜 Adult Eligibility Rule - Custom Business Logic
+ *
+ * 🎯 Purpose: Identify adults eligible for premium services
+ * 🧊 Facts: Person object with age and name
+ * ➕ Conditions: Age >= 18
+ * 🔥 Actions: Log eligibility message
+ */
+
+rule "Adult Eligibility Rule"
+    when
+        $person : Person(age >= 18)
+    then
+          logCollector.add("🧠 Rule triggered for: " + $person.getName());
+          logCollector.add("🎯 " + $person.getName() + " is Adult and eligible for premium services.");
+end
